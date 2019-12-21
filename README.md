@@ -1,5 +1,6 @@
 # Gatsby Portfolio
 #### My personal website - Built with [Gatsby.js](https://www.gatsbyjs.org/) and Published at [konstantin.digital](https://konstantin.digital)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Netlify Status](https://api.netlify.com/api/v1/badges/c0f9e111-12d6-426d-87fa-3450d7052da6/deploy-status)](https://app.netlify.com/sites/fervent-hamilton-17c92d/deploys)
 
 This is the first iteration of my personal website. The project is under ongoing development. However, feel free to use it as a basis for your own portfolio - please just read the note below first. And if you find any bugs or improvements, let me know!
 
