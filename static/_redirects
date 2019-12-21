@@ -1,0 +1,4 @@
+## Redirect configuration for Netlify ##
+
+# Redirect default Netlify subdomain to primary domain
+https://fervent-hamilton-17c92d.netlify.com/* https://www.konstantin.digital/:splat 301!
