@@ -18,6 +18,14 @@ module.exports = {
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
     {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        trackingId: `UA-157258742-1`,
+        head: false,
+        anonymize: true,
+      },
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: config.siteTitle,
