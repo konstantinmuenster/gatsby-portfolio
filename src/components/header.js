@@ -56,7 +56,7 @@ const StyledBurger = styled.button`
     height: 0.25rem;
     background: ${colors.primary};
     border-radius: 0.625rem;
-    transition: all 0.3s linear;
+    transition: all 0.3s ease-in-out;
     position: relative;
     transform-origin: 1px;
 
