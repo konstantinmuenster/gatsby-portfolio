@@ -4,18 +4,16 @@ import styled from "styled-components"
 
 import Config from "../config/"
 
-import Theme from "../styles/Theme"
 import ContentWrapper from "../styles/ContentWrapper"
 
 import Logo from "./logo"
 
 const { footerLinks } = Config
-const { colors, breakpoints, footerHeight } = Theme
 
 const StyledFooter = styled.footer`
   width: 100%;
-  height: ${footerHeight};
-  background: ${colors.primary};
+  height: ${({ theme }) => theme.footerHeight};
+  background: ${({ theme }) => theme.colors.primary};
   margin-top: 10rem;
 `
 
@@ -31,7 +29,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       width: 10rem;
       display: flex;
       justify-content: space-between;
-      @media (min-width: ${breakpoints.sm}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
         width: 15rem;
       }
     }

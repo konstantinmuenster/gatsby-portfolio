@@ -3,11 +3,7 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 
 import config from "../config/"
-
-import Theme from "../styles/Theme"
-
 const { navLinks } = config
-const { colors, borderRadius, breakpoints } = Theme
 
 const StyledBackdrop = styled.div`
   position: fixed;
@@ -19,7 +15,7 @@ const StyledBackdrop = styled.div`
   z-index: 9;
   transition: all 0.3s ease-in-out;
   display: ${({ open }) => (open ? "block" : "none")};
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
 `
@@ -37,7 +33,7 @@ const StyledContainer = styled.div`
   transition: all 0.3s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
   visibility: ${({ open }) => (open ? "visible" : "hidden")};
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
 `
@@ -46,7 +42,7 @@ const StyledNav = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   height: 100vh;
   width: 70%;
   text-align: left;
@@ -55,7 +51,7 @@ const StyledNav = styled.nav`
   right: 0;
   margin-left: auto;
   a {
-    color: ${colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
   .nav-link {
     font-size: 1.5rem;
@@ -70,9 +66,9 @@ const StyledNav = styled.nav`
     padding: 1rem 1.5rem;
     font-weight: 700;
     font-size: 1.5rem;
-    border-radius: ${borderRadius};
-    border: 0.125rem solid ${colors.primary};
-    background: ${colors.background};
+    border-radius: ${({ theme }) => theme.borderRadius};
+    border: 0.125rem solid ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.background};
   }
 `
 

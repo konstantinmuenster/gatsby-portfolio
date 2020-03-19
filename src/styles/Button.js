@@ -1,14 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 
-import Theme from "./Theme"
-
-const { colors, borderRadius } = Theme
-
 const StyledButton = styled.button`
   width: 15.625rem;
   height: 3rem;
-  background: ${({ color }) => color ? color : colors.background};
+  background: ${({ color, theme }) => color ? color : theme.colors.background};
   color: #ffffff;
   padding: 1rem;
   margin: 0 ${({ center }) => center ? "auto" : "0"};
@@ -16,7 +12,7 @@ const StyledButton = styled.button`
   font-weight: 700;
   text-transform: uppercase;
   border: none;
-  border-radius: ${borderRadius};
+  border-radius: ${({ theme }) => theme.borderRadius};
   text-decoration: none;
   text-align: ${({ textAlign }) => textAlign ? textAlign : "left"};
   &:hover,

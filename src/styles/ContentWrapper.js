@@ -1,9 +1,7 @@
 import styled from "styled-components"
 
-import Theme from "./Theme"
-
 const ContentWrapper = styled.div`
-  max-width: ${Theme.pageWidth};
+  max-width: ${({ theme }) => theme.pageWidth};
   margin: 0 auto;
   padding: 0 2.5rem;
 `

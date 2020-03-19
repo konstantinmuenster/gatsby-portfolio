@@ -3,15 +3,12 @@ import styled from "styled-components"
 import Img from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import Theme from "../../styles/Theme"
 import ContentWrapper from "../../styles/ContentWrapper"
-
-const { colors, borderRadius, breakpoints } = Theme
 
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   margin-top: 4rem;
 `
 
@@ -22,7 +19,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    @media (min-width: ${breakpoints.sm}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
       flex-direction: row;
       justify-content: space-between;
     }
@@ -37,7 +34,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     .text-content {
       width: 100%;
       max-width: 22rem;
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         max-width: 31.25rem;
       }
     }
@@ -45,7 +42,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       width: 100%;
       max-width: 18rem;
       margin-top: 4rem;
-      border-radius: ${borderRadius};
+      border-radius: ${({ theme }) => theme.borderRadius};
       box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
       filter: grayscale(20%) contrast(1) brightness(90%);
       transition: all 0.3s ease-out;

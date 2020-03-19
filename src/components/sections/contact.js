@@ -3,18 +3,15 @@ import styled from "styled-components"
 import Img from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import Theme from "../../styles/Theme"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 
 import Social from "../social"
 
-const { colors, breakpoints } = Theme
-
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   margin-top: 6rem;
   display: flex;
   justify-content: center;
@@ -37,7 +34,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       justify-content: flex-start;
       margin-top: 3rem;
       margin-bottom: 2rem;
-      @media (min-width: ${breakpoints.sm}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
         flex-direction: row;
         align-items: center;
         margin-bottom: 3rem;
@@ -48,7 +45,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
         border-radius: 50%;
         margin-right: 4rem;
         margin-bottom: 2rem;
-        @media (min-width: ${breakpoints.sm}) {
+        @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
           margin-bottom: 0;
         }
       }
@@ -69,11 +66,18 @@ const Contact = ({ content }) => {
         <h3>{frontmatter.title}</h3>
         <MDXRenderer>{body}</MDXRenderer>
         <div className="profile">
-          <Img className="avatar" fluid={frontmatter.profileImage.childImageSharp.fluid} />
+          <Img
+            className="avatar"
+            fluid={frontmatter.profileImage.childImageSharp.fluid}
+          />
           <div className="details">
-            <strong>{frontmatter.name}</strong><br />
+            <strong>{frontmatter.name}</strong>
+            <br />
             <a href={`mailto:${frontmatter.email}`}>
-              <Underlining color={colors.secondary} hoverColor={colors.secondary}>
+              <Underlining
+                color={({ theme }) => theme.colors.secondary}
+                hoverColor={({ theme }) => theme.colors.secondary}
+              >
                 {frontmatter.email}
               </Underlining>
             </a>

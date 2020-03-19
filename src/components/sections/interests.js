@@ -4,16 +4,13 @@ import Img from "gatsby-image"
 
 import { detectMobileAndTablet, isSSR } from "../../utils"
 
-import Theme from "../../styles/Theme"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Button from "../../styles/Button"
-
-const { colors, borderRadius, breakpoints } = Theme
 
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   margin-top: 6rem;
 `
 
@@ -26,14 +23,14 @@ const StyledContentWrapper = styled(ContentWrapper)`
     justify-content: center;
     padding-right: 0;
     padding-left: 0;
-    @media (min-width: ${breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
     .section-title {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         padding-right: 0;
         padding-left: 0;
       }
@@ -65,7 +62,7 @@ const StyledInterests = styled.div`
     width: ${({ itemCount }) =>
       Math.ceil(itemCount / 2) % 2 === 1 ? "17.125rem" : "2.5rem"};
   }
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     grid-auto-flow: row;
     grid-template-columns: repeat(3, 15.625rem);
     overflow: visible;
@@ -78,8 +75,8 @@ const StyledInterests = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 1rem;
-    border: 0.125rem solid ${colors.primary};
-    border-radius: ${borderRadius};
+    border: 0.125rem solid ${({ theme }) => theme.colors.primary};
+    border-radius: ${({ theme }) => theme.borderRadius};
     .icon {
       margin-right: 0.5rem;
     }
@@ -118,7 +115,7 @@ const Interests = ({ content }) => {
               onClick={() => showMoreItems()}
               type="button"
               textAlign="left"
-              color={colors.primary}
+              color={({ theme }) => theme.colors.primary}
             >
               + Load more
             </Button>

@@ -4,17 +4,15 @@ import styled from "styled-components"
 import config from "../../config"
 import { parseDate } from "../../utils"
 
-import Theme from "../../styles/Theme"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 
 const { mediumRssFeed } = config
-const { colors, borderRadius, breakpoints } = Theme
 
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
 `
 
 const StyledContentWrapper = styled(ContentWrapper)`
@@ -23,14 +21,14 @@ const StyledContentWrapper = styled(ContentWrapper)`
     height: 100%;
     padding-right: 0;
     padding-left: 0;
-    @media (min-width: ${breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
     .section-title {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         padding-right: 0;
         padding-left: 0;
       }
@@ -46,7 +44,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       &::-webkit-scrollbar {
           display: none;
       }
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         padding: 0;
         overflow: visible;
       }
@@ -60,19 +58,19 @@ const StyledContentWrapper = styled(ContentWrapper)`
       padding: 1rem;
       margin: 2rem 1rem;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.16);
-      border-radius: ${borderRadius};
+      border-radius: ${({ theme }) => theme.borderRadius};
       transition: box-shadow .3s ease-out;
       &:hover {
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.32);
       }
       &:hover ${Underlining} {
-        box-shadow: inset 0 -1rem 0 ${colors.secondary};
+        box-shadow: inset 0 -1rem 0 ${({ theme }) => theme.colors.secondary};
       }
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         margin: 2rem auto
       }
       .category {
-        color: ${colors.primary};
+        color: ${({ theme }) => theme.colors.primary};
         text-transform: uppercase;
         letter-spacing: +1px;
         font-weight: 700;
@@ -123,8 +121,8 @@ const Articles = props => {
                   <div className="card">
                     <span className="category">
                       <Underlining
-                        color={colors.tertiary}
-                        hoverColor={colors.secondary}
+                        color={({ theme }) => theme.colors.tertiary}
+                        hoverColor={({ theme }) => theme.colors.secondary}
                       >
                         {item.categories[2]}
                       </Underlining>

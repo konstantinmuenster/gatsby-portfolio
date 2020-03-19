@@ -5,17 +5,13 @@
 import React from "react"
 import styled from "styled-components"
 
-import Theme from "../styles/Theme"
 import ContentWrapper from "../styles/ContentWrapper"
-
-// Use Theme Variables
-const { colors } = Theme
 
 // Full Width Section
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   margin-top: 6rem;
 `
 

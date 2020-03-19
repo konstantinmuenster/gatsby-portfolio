@@ -4,10 +4,7 @@ import styled from "styled-components"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-import Theme from "../styles/Theme"
 import ContentWrapper from "../styles/ContentWrapper"
-
-const { colors } = Theme
 
 const StyledSection = styled.section`
   width: 100%;
@@ -15,7 +12,7 @@ const StyledSection = styled.section`
   margin: 0 auto;
   padding: 0 2.5rem;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   h1 {
       font-size: 1.5rem;
   }

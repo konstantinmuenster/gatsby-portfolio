@@ -3,11 +3,7 @@ import styled from "styled-components"
 
 import config from "../config/"
 import getIcon from "./icons/"
-
-import Theme from "../styles/Theme"
-
 const { socialMedia } = config
-const { colors, borderRadius, breakpoints } = Theme
 
 const StyledSocialWrapper = styled.div`
   display: grid;
@@ -37,7 +33,7 @@ const StyledSocialWrapper = styled.div`
   a {
     margin-right: 0.5rem;
     margin-bottom: 0.75rem;
-    @media (min-width: ${breakpoints.sm}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
       margin-right: 1rem;
     }
   }
@@ -46,21 +42,21 @@ const StyledSocialWrapper = styled.div`
 const StyledSocialProfile = styled.a`
   width: ${({ width }) => (width ? width : "auto")};
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   background: linear-gradient(
     to right,
-    ${colors.primary} 50%,
-    ${colors.background} 50%
+    ${({ theme }) => theme.colors.primary} 50%,
+    ${({ theme }) => theme.colors.background} 50%
   );
   background-size: 205% 100%;
   background-position: right bottom;
-  border-radius: ${borderRadius};
-  border: 0.125rem solid ${colors.primary};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  border: 0.125rem solid ${({ theme }) => theme.colors.primary};
   padding: ${({ padding }) => (padding ? padding : ".3rem 1.25rem")};
   transition: all 0.1s ease-out;
   font-size: ${({ fontSize }) => (fontSize ? fontSize : "1rem")};
   font-weight: 500;
-  color: ${colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
   &:hover {
     background-position: left bottom;
     color: #ffffff;

@@ -5,19 +5,16 @@ import styled from "styled-components"
 
 import { detectMobileAndTablet, isSSR } from "../utils/"
 
-import Theme from "../styles/Theme"
 import ContentWrapper from "../styles/ContentWrapper"
 
 import Logo from "./logo"
 import Sidebar from "./sidebar"
 import Navbar from "./navbar"
 
-const { colors, breakpoints, headerHeight } = Theme
-
 const StyledHeader = styled.header`
   width: 100%;
-  height: ${headerHeight};
-  background: ${colors.background};
+  height: ${({ theme }) => theme.headerHeight};
+  background: ${({ theme }) => theme.colors.background};
 `
 
 const StyledContentWrapper = styled(ContentWrapper)`
@@ -47,14 +44,14 @@ const StyledBurger = styled.button`
     outline: none;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
 
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${colors.primary};
+    background: ${({ theme }) => theme.colors.primary};
     border-radius: 0.625rem;
     transition: all 0.3s ease-in-out;
     position: relative;
@@ -124,7 +121,7 @@ const Header = () => {
       <Helmet bodyAttributes={{ class: open ? "blur" : "" }} />
       <StyledContentWrapper>
         <Link to="/" aria-label="home">
-          <Logo color={colors.primary} size="2rem" />
+          <Logo color={({ theme }) => theme.colors.primary} size="2rem" />
         </Link>
         {navigation}
       </StyledContentWrapper>

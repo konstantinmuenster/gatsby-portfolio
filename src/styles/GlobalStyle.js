@@ -1,8 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
 import modernNormalize from "styled-modern-normalize"
-import Theme from './Theme'
-
-const { colors, fonts, breakpoints } = Theme
 
 const GlobalStyle = createGlobalStyle`
     
@@ -24,9 +21,9 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         background-color: #ffffff;
-        color: ${colors.text};
+        color: ${({ theme }) => theme.colors.text};
         font-size: 1rem;
-        font-family: ${fonts.primary};
+        font-family: ${({ theme }) => theme.fonts.primary};
         line-height: 1.5rem;
         font-weight: 400;
         text-rendering: optimizeLegibility;
@@ -57,8 +54,8 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
         font-size: 2rem;
         line-height: 2.375rem;
-        color: ${colors.primary};
-        @media (min-width: ${breakpoints.lg}) {
+        color: ${({ theme }) => theme.colors.primary};
+        @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
             font-size: 2.625rem;
             line-height: 4rem;
         }
@@ -68,8 +65,8 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
         font-size: 1.25rem;
         line-height: 1.5rem;
-        color: ${colors.primary};
-        @media (min-width: ${breakpoints.lg}) {
+        color: ${({ theme }) => theme.colors.primary};
+        @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
             font-size: 2rem;
             line-height: 3rem;
         }
@@ -79,7 +76,7 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
         font-size: 1.75rem;
         line-height: 2.25rem;
-        color: ${colors.primary};
+        color: ${({ theme }) => theme.colors.primary};
         margin-bottom: 3rem;
     }
 
@@ -92,7 +89,7 @@ const GlobalStyle = createGlobalStyle`
     hr {
         margin: 3rem auto;
         border-width: .05rem;
-        border-color: ${colors.tertiary};
+        color: ${({ theme }) => theme.colors.tertiary};
         opacity: 0.1;
       }
 

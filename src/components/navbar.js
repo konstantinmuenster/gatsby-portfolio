@@ -4,21 +4,18 @@ import { Link } from "gatsby"
 
 import config from "../config/"
 
-import Theme from "../styles/Theme"
-
 const { navLinks } = config
-const { colors, borderRadius, breakpoints } = Theme
 
 const StyledNav = styled.nav`
   display: none;
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 31.25rem;
-    background: ${colors.background};
+    background: ${({ theme }) => theme.colors.background};
     a {
-      color: ${colors.primary};
+      color: ${({ theme }) => theme.colors.primary};
     }
   }
   .nav-link {
@@ -33,7 +30,7 @@ const StyledNav = styled.nav`
       height: 0.1563rem;
       content: "";
       position: absolute;
-      background-color: ${colors.primary};
+      background-color: ${({ theme }) => theme.colors.primary};
       width: 0%;
       bottom: -0.125rem;
     }
@@ -45,15 +42,15 @@ const StyledNav = styled.nav`
     width: auto;
     height: auto;
     font-weight: 700;
-    border-radius: ${borderRadius};
-    border: 0.125rem solid ${colors.primary};
-    background: ${colors.background};
+    border-radius: ${({ theme }) => theme.borderRadius};
+    border: 0.125rem solid ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.background};
     transition: 20ms ease-out;
     font-size: 1rem;
     padding: 0.5rem 1.5rem;
     margin: 0;
     &:hover {
-      background: ${colors.primary};
+      background: ${({ theme }) => theme.colors.primary};
       color: #ffffff;
     }
   }

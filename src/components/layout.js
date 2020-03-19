@@ -1,7 +1,8 @@
 import React from "react"
-import styled from "styled-components"
+import styled, { ThemeProvider }  from "styled-components"
 import "typeface-roboto"
 
+import Theme from "../styles/Theme"
 import GlobalStyle from "../styles/GlobalStyle"
 
 import Header from "./header"
@@ -23,10 +24,12 @@ const StyledLayoutWrapper = styled.div`
 
 const Layout = ({ children }) => (
   <StyledLayoutWrapper>
-    <GlobalStyle />
-    <Header />
-    <main id="main-content">{children}</main>
-    <Footer />
+    <ThemeProvider theme={Theme}>
+      <GlobalStyle />
+      <Header />
+      <main id="main-content">{children}</main>
+      <Footer />
+    </ThemeProvider>
   </StyledLayoutWrapper>
 )
 

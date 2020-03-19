@@ -3,18 +3,16 @@ import styled from "styled-components"
 import Img from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import Theme from "../../styles/Theme"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 
 import Social from "../social"
 
-const { colors, breakpoints } = Theme
 
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
 `
 
 const StyledContentWrapper = styled(ContentWrapper)`
@@ -26,7 +24,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     flex-direction: column;
     justify-content: center;
     margin-bottom: 6rem;
-    @media (min-width: ${breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
       margin-bottom: 4rem;
     }
     .greetings {
@@ -38,7 +36,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       margin-left: 0.75rem;
       width: 2.2rem;
       height: 2.2rem;
-      @media (min-width: ${breakpoints.md}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         margin-left: 1rem;
         width: 3rem;
         height: 3rem;
@@ -46,7 +44,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     }
     .title {
       margin-bottom: 1.5rem;
-      @media (min-width: ${breakpoints.md}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         margin-bottom: 0;
       }
     }
@@ -75,7 +73,7 @@ const Hero = ({ content }) => {
         </h1>
         <h2 className="subtitle">
           {frontmatter.subtitlePrefix}{" "}
-          <Underlining color={colors.tertiary} hoverColor={colors.secondary} big>
+          <Underlining color={({ theme }) => theme.colors.tertiary} hoverColor={({ theme }) => theme.colors.secondary} big>
             {frontmatter.subtitle}
           </Underlining>
         </h2>

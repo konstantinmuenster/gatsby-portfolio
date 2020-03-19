@@ -6,7 +6,6 @@ import VisibilitySensor from "react-visibility-sensor"
 
 import config from "../../config"
 
-import Theme from "../../styles/Theme"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 import Button from "../../styles/Button"
@@ -14,12 +13,11 @@ import Button from "../../styles/Button"
 import IconGithub from "../icons/github"
 
 const { socialMedia } = config
-const { colors, borderRadius, breakpoints } = Theme
 
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
-  background: ${colors.background};
+  background: ${({ theme }) => theme.colors.background};
   margin-top: 6rem;
 `
 
@@ -33,14 +31,14 @@ const StyledContentWrapper = styled(ContentWrapper)`
     justify-content: center;
     padding-right: 0;
     padding-left: 0;
-    @media (min-width: ${breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
     .section-title {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         padding-right: 0;
         padding-left: 0;
       }
@@ -56,7 +54,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       &::-webkit-scrollbar {
         display: none;
       }
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         flex-direction: column;
         margin-top: 0;
         padding: 0;
@@ -69,13 +67,13 @@ const StyledContentWrapper = styled(ContentWrapper)`
       right: 2.5rem;
       font-size: 1.125rem;
       font-weight: 500;
-      @media (min-width: ${breakpoints.sm}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
         display: none;
       }
     }
     .github-btn {
       margin: -6rem auto 2rem auto;
-      @media (min-width: ${breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         margin: 0 auto;
       }
     }
@@ -91,11 +89,11 @@ const StyledProject = styled.div`
   flex-shrink: 0;
   padding-right: 2.5rem;
   max-width: 20rem;
-  @media (min-width: ${breakpoints.xs}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.xs}) {
     max-width: 25rem;
     padding-right: 5rem;
   }
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     flex-shrink: 1;
     max-width: 62.5rem;
     padding-right: 0;
@@ -136,7 +134,7 @@ const StyledProject = styled.div`
   .screenshot {
     width: 100%;
     max-width: 25rem;
-    border-radius: ${borderRadius};
+    border-radius: ${({ theme }) => theme.borderRadius};
     box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
     transition: all 0.3s ease-out;
     &:hover {
@@ -182,8 +180,8 @@ const Projects = ({ content }) => {
                     {frontmatter.tags.map(tag => (
                       <Underlining
                         key={tag}
-                        color={colors.secondary}
-                        hoverColor={colors.secondary}
+                        color={({ theme }) => theme.colors.secondary}
+                        hoverColor={({ theme }) => theme.colors.secondary}
                       >
                         {tag}
                       </Underlining>
@@ -213,7 +211,7 @@ const Projects = ({ content }) => {
           <Button
             type="button"
             textAlign="center"
-            color={colors.primary}
+            color={({ theme }) => theme.colors.primary}
             center
           >
             <IconGithub color="#ffffff" /> See More On Github
