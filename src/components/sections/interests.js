@@ -30,19 +30,18 @@ const StyledContentWrapper = styled(ContentWrapper)`
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
+    .section-title {
+      padding-right: 2.5rem;
+      padding-left: 2.5rem;
+      @media (min-width: ${breakpoints.lg}) {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
   }
 `
 
-const StyledSectionTitle = styled.h3`
-  padding-right: 2.5rem;
-  padding-left: 2.5rem;
-  @media (min-width: ${breakpoints.lg}) {
-    padding-right: 0;
-    padding-left: 0;
-  }
-`
-
-const StyledLabelWrapper = styled.div`
+const StyledInterests = styled.div`
   display: grid;
   // Calculate how many columns are needed, depending on interests count
   grid-template-columns: repeat(
@@ -60,34 +59,31 @@ const StyledLabelWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-
   // Workaround: https://stackoverflow.com/questions/38993170/last-margin-padding-collapsing-in-flexbox-grid-layout
   &::after {
     content: "";
-    width: ${({ itemCount }) =>  Math.ceil(itemCount / 2) % 2 === 1 ? "17.125rem" : "2.5rem"}
+    width: ${({ itemCount }) =>
+      Math.ceil(itemCount / 2) % 2 === 1 ? "17.125rem" : "2.5rem"};
   }
-  
   @media (min-width: ${breakpoints.lg}) {
     grid-auto-flow: row;
     grid-template-columns: repeat(3, 15.625rem);
     overflow: visible;
     padding: 0;
   }
-`
-
-const StyledLabel = styled.div`
-  width: 15.625rem;
-  height: 3rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 1rem;
-  border: 0.125rem solid ${colors.primary};
-  border-radius: ${borderRadius};
-`
-
-const StyledIcon = styled(Img)`
-  margin-right: 0.5rem;
+  .interest {
+    width: 15.625rem;
+    height: 3rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem;
+    border: 0.125rem solid ${colors.primary};
+    border-radius: ${borderRadius};
+    .icon {
+      margin-right: 0.5rem;
+    }
+  }
 `
 
 const Interests = ({ content }) => {
@@ -110,12 +106,12 @@ const Interests = ({ content }) => {
   return (
     <StyledSection id="interests">
       <StyledContentWrapper>
-        <StyledSectionTitle>{frontmatter.title}</StyledSectionTitle>
-        <StyledLabelWrapper itemCount={interests.length}>
+        <h3 className="section-title">{frontmatter.title}</h3>
+        <StyledInterests itemCount={interests.length}>
           {interests.slice(0, shownInterests).map(({ name, icon }, key) => (
-            <StyledLabel key={key}>
-              <StyledIcon fixed={icon.childImageSharp.fixed} /> {name}
-            </StyledLabel>
+            <div className="interest" key={key}>
+              <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
+            </div>
           ))}
           {shownInterests < interests.length && (
             <Button
@@ -127,7 +123,7 @@ const Interests = ({ content }) => {
               + Load more
             </Button>
           )}
-        </StyledLabelWrapper>
+        </StyledInterests>
       </StyledContentWrapper>
     </StyledSection>
   )

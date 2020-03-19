@@ -37,45 +37,48 @@ const StyledContentWrapper = styled(ContentWrapper)`
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
-  }
-`
-
-const StyledSectionTitle = styled.h3`
-  padding-right: 2.5rem;
-  padding-left: 2.5rem;
-  @media (min-width: ${breakpoints.lg}) {
-    padding-right: 0;
-    padding-left: 0;
-  }
-`
-
-const StyledProjects = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: -2.5rem;
-  padding: 2.5rem 2.5rem;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  @media (min-width: ${breakpoints.lg}) {
-    flex-direction: column;
-    margin-top: 0;
-    padding: 0;
-    overflow: visible;
-  }
-`
-
-const StyledProjectsCounter = styled.div`
-  position: absolute;
-  top: 2.2rem;
-  right: 2.5rem;
-  font-size: 1.125rem;
-  font-weight: 500;
-  @media (min-width: ${breakpoints.sm}) {
-    display: none;
+    .section-title {
+      padding-right: 2.5rem;
+      padding-left: 2.5rem;
+      @media (min-width: ${breakpoints.lg}) {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+    .projects {
+      display: flex;
+      flex-direction: row;
+      margin-top: -2.5rem;
+      padding: 2.5rem 2.5rem;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      @media (min-width: ${breakpoints.lg}) {
+        flex-direction: column;
+        margin-top: 0;
+        padding: 0;
+        overflow: visible;
+      }
+    }
+    .counter {
+      position: absolute;
+      top: 2.2rem;
+      right: 2.5rem;
+      font-size: 1.125rem;
+      font-weight: 500;
+      @media (min-width: ${breakpoints.sm}) {
+        display: none;
+      }
+    }
+    .github-btn {
+      margin: -6rem auto 2rem auto;
+      @media (min-width: ${breakpoints.lg}) {
+        margin: 0 auto;
+      }
+    }
   }
 `
 
@@ -100,58 +103,46 @@ const StyledProject = styled.div`
     flex-direction: ${({ position }) =>
       position % 2 !== 0 ? "row" : "row-reverse"};
   }
-`
-
-const StyledDetails = styled.div`
-  width: 100%;
-  max-width: 25rem;
-  display: flex;
-  flex-direction: column;
-  margin-top: 3rem;
-`
-
-const StyledCategory = styled.div`
-  font-size: 0.875rem;
-  line-height: 1rem;
-  text-transform: uppercase;
-  letter-spacing: +1px;
-`
-
-const StyledTitle = styled.h4`
-  margin-top: 0.625rem;
-  margin-bottom: 0.625rem;
-  font-size: 1.375rem;
-  line-height: 1.625rem;
-  font-weight: 700;
-`
-
-const StyledLabelWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-  line-height: 1.2rem;
-  span {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+  .details {
+    width: 100%;
+    max-width: 25rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    .category {
+      font-size: 0.875rem;
+      line-height: 1rem;
+      text-transform: uppercase;
+      letter-spacing: +1px;
+    }
+    .title {
+      margin-top: 0.625rem;
+      margin-bottom: 0.625rem;
+      font-size: 1.375rem;
+      line-height: 1.625rem;
+      font-weight: 700;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      line-height: 1.2rem;
+      span {
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+      }
+    }
   }
-`
-
-const StyledImg = styled(Img)`
-  width: 100%;
-  max-width: 25rem;
-  border-radius: ${borderRadius};
-  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
-  transition: all 0.3s ease-out;
-  &:hover {
-    transform: translate3d(0px, -0.125rem, 0px);
-    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
-  }
-`
-
-const StyledLink = styled.a`
-  margin: -6rem auto 2rem auto;
-  @media (min-width: ${breakpoints.lg}) {
-    margin: 0 auto;
+  .screenshot {
+    width: 100%;
+    max-width: 25rem;
+    border-radius: ${borderRadius};
+    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
+    transition: all 0.3s ease-out;
+    &:hover {
+      transform: translate3d(0px, -0.125rem, 0px);
+      box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
+    }
   }
 `
 
@@ -169,42 +160,51 @@ const Projects = ({ content }) => {
   return (
     <StyledSection id="projects">
       <StyledContentWrapper>
-        <StyledSectionTitle>
-          {sectionDetails.frontmatter.title}
-        </StyledSectionTitle>
-        <StyledProjectsCounter>
+        <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
+        <div className="counter">
           {visibleProject} / {projects.length}
-        </StyledProjectsCounter>
-        <StyledProjects>
+        </div>
+        <div className="projects">
           {projects.map(project => {
             const { body, frontmatter } = project.node
             return (
-              <StyledProject position={frontmatter.position} key={frontmatter.position}>
-                <StyledDetails position={frontmatter.position}>
-                  <StyledCategory>
+              <StyledProject
+                position={frontmatter.position}
+                key={frontmatter.position}
+              >
+                <div className="details">
+                  <div className="category">
                     {frontmatter.emoji} {frontmatter.category}
-                  </StyledCategory>
-                  <StyledTitle>{frontmatter.title}</StyledTitle>
+                  </div>
+                  <div className="title">{frontmatter.title}</div>
                   <MDXRenderer>{body}</MDXRenderer>
-                  <StyledLabelWrapper>
+                  <div className="tags">
                     {frontmatter.tags.map(tag => (
-                      <Underlining key={tag}
+                      <Underlining
+                        key={tag}
                         color={colors.secondary}
-                        hoverColor={colors.secondary}>
+                        hoverColor={colors.secondary}
+                      >
                         {tag}
                       </Underlining>
                     ))}
-                  </StyledLabelWrapper>
-                </StyledDetails>
+                  </div>
+                </div>
                 {/* If image in viewport changes, update state accordingly */}
-                <VisibilitySensor onChange={() => setVisibleProject(frontmatter.position)}>
-                  <StyledImg fluid={frontmatter.screenshot.childImageSharp.fluid} />
+                <VisibilitySensor
+                  onChange={() => setVisibleProject(frontmatter.position)}
+                >
+                  <Img
+                    className="screenshot"
+                    fluid={frontmatter.screenshot.childImageSharp.fluid}
+                  />
                 </VisibilitySensor>
               </StyledProject>
             )
           })}
-        </StyledProjects>
-        <StyledLink
+        </div>
+        <a
+          className="github-btn"
           href={socialMedia.filter(profile => profile.name === "Github")[0].url}
           target="_blank"
           rel="nofollow noopener noreferrer"
@@ -218,7 +218,7 @@ const Projects = ({ content }) => {
           >
             <IconGithub color="#ffffff" /> See More On Github
           </Button>
-        </StyledLink>
+        </a>
       </StyledContentWrapper>
     </StyledSection>
   )

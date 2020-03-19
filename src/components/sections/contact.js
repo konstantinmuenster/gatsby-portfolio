@@ -31,36 +31,33 @@ const StyledContentWrapper = styled(ContentWrapper)`
       margin-top: 0;
       margin-bottom: 0;
     }
+    .profile {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+      @media (min-width: ${breakpoints.sm}) {
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 3rem;
+      }
+      .avatar {
+        width: 100%;
+        max-width: 8.75rem;
+        border-radius: 50%;
+        margin-right: 4rem;
+        margin-bottom: 2rem;
+        @media (min-width: ${breakpoints.sm}) {
+          margin-bottom: 0;
+        }
+      }
+      .details {
+        font-size: 1.125rem;
+        line-height: 2rem;
+      }
+    }
   }
-`
-
-const StyledProfile = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
-  @media (min-width: ${breakpoints.sm}) {
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 3rem;
-  }
-`
-
-const StyledProfileImage = styled(Img)`
-  width: 100%;
-  max-width: 8.75rem;
-  border-radius: 50%;
-  margin-right: 4rem;
-  margin-bottom: 2rem;
-  @media (min-width: ${breakpoints.sm}) {
-    margin-bottom: 0;
-  }
-`
-
-const StyledProfileDetails = styled.div`
-  font-size: 1.125rem;
-  line-height: 2rem;
 `
 
 const Contact = ({ content }) => {
@@ -71,17 +68,17 @@ const Contact = ({ content }) => {
       <StyledContentWrapper>
         <h3>{frontmatter.title}</h3>
         <MDXRenderer>{body}</MDXRenderer>
-        <StyledProfile>
-          <StyledProfileImage fluid={frontmatter.profileImage.childImageSharp.fluid} />
-          <StyledProfileDetails>
+        <div className="profile">
+          <Img className="avatar" fluid={frontmatter.profileImage.childImageSharp.fluid} />
+          <div className="details">
             <strong>{frontmatter.name}</strong><br />
             <a href={`mailto:${frontmatter.email}`}>
               <Underlining color={colors.secondary} hoverColor={colors.secondary}>
                 {frontmatter.email}
               </Underlining>
             </a>
-          </StyledProfileDetails>
-        </StyledProfile>
+          </div>
+        </div>
         <Social width="9rem" padding="0.5rem 1.25rem" withIcon />
       </StyledContentWrapper>
     </StyledSection>

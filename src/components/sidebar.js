@@ -57,25 +57,23 @@ const StyledNav = styled.nav`
   a {
     color: ${colors.primary};
   }
-`
-
-const StyledNavLink = styled(Link)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  padding: 1.5rem 0;
-`
-
-const StyledButton = styled(Link)`
-  width: auto;
-  height: auto;
-  margin: 1.5rem auto;
-  padding: 1rem 1.5rem;
-  font-weight: 700;
-  font-size: 1.5rem;
-  border-radius: ${borderRadius};
-  border: 0.125rem solid ${colors.primary};
-  background: ${colors.background};
+  .nav-link {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+  .cta-btn {
+    width: auto;
+    height: auto;
+    margin: 1.5rem auto;
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    border-radius: ${borderRadius};
+    border: 0.125rem solid ${colors.primary};
+    background: ${colors.background};
+  }
 `
 
 const Sidebar = ({ open, setOpen }) => {
@@ -85,13 +83,13 @@ const Sidebar = ({ open, setOpen }) => {
       <StyledContainer open={open} aria-hidden={!open} tabIndex={open ? 1 : -1}>
         <StyledNav>
           {menu.map(({ name, url }, key) => (
-            <StyledNavLink key={key} to={url} onClick={() => setOpen(!open)}>
+            <Link className="nav-link" key={key} to={url} onClick={() => setOpen(!open)}>
               {name}
-            </StyledNavLink>
+            </Link>
           ))}
-          <StyledButton to={button.url} onClick={() => setOpen(!open)}>
+          <Link className="cta-btn" to={button.url} onClick={() => setOpen(!open)}>
             {button.name}
-          </StyledButton>
+          </Link>
         </StyledNav>
       </StyledContainer>
       <StyledBackdrop open={open} />

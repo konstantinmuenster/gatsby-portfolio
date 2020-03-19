@@ -26,39 +26,35 @@ const StyledContentWrapper = styled(ContentWrapper)`
       flex-direction: row;
       justify-content: space-between;
     }
-  }
-`
-
-const StyledSectionTitle = styled.h3`
-  margin-bottom: 2rem;
-`
-
-const StyledInnerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-const StyledText = styled.div`
-  width: 100%;
-  max-width: 22rem;
-  @media (min-width: ${breakpoints.lg}) {
-    max-width: 31.25rem;
-  }
-`
-
-const StyledImg = styled(Img)`
-  width: 100%;
-  max-width: 18rem;
-  margin-top: 4rem;
-  border-radius: ${borderRadius};
-  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
-  filter: grayscale(20%) contrast(1) brightness(90%);
-  transition: all 0.3s ease-out;
-  &:hover {
-    filter: grayscale(50%) contrast(1) brightness(90%);
-    transform: translate3d(0px, -0.125rem, 0px);
-    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
+    .section-title {
+      margin-bottom: 2rem;
+    }
+    .inner-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .text-content {
+      width: 100%;
+      max-width: 22rem;
+      @media (min-width: ${breakpoints.lg}) {
+        max-width: 31.25rem;
+      }
+    }
+    .about-author {
+      width: 100%;
+      max-width: 18rem;
+      margin-top: 4rem;
+      border-radius: ${borderRadius};
+      box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
+      filter: grayscale(20%) contrast(1) brightness(90%);
+      transition: all 0.3s ease-out;
+      &:hover {
+        filter: grayscale(50%) contrast(1) brightness(90%);
+        transform: translate3d(0px, -0.125rem, 0px);
+        box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
+      }
+    }
   }
 `
 
@@ -68,13 +64,13 @@ const About = ({ content }) => {
   return (
     <StyledSection id="about">
       <StyledContentWrapper>
-        <StyledInnerWrapper>
-          <StyledSectionTitle>{frontmatter.title}</StyledSectionTitle>
-          <StyledText>
+        <div className="inner-wrapper">
+          <h3 className="section-title">{frontmatter.title}</h3>
+          <div className="text-content">
             <MDXRenderer>{body}</MDXRenderer>
-          </StyledText>
-        </StyledInnerWrapper>
-        <StyledImg fluid={frontmatter.image.childImageSharp.fluid} />
+          </div>
+        </div>
+        <Img className="about-author" fluid={frontmatter.image.childImageSharp.fluid} />
       </StyledContentWrapper>
     </StyledSection>
   )

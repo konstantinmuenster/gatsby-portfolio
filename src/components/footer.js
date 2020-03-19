@@ -26,20 +26,19 @@ const StyledContentWrapper = styled(ContentWrapper)`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .footer-links {
+      // Adjust width of links wrapper accordingly
+      width: 10rem;
+      display: flex;
+      justify-content: space-between;
+      @media (min-width: ${breakpoints.sm}) {
+        width: 15rem;
+      }
+    }
   }
 `
 
-const StyledLinksWrapper = styled.div`
-  // Adjust width of links wrapper accordingly
-  width: 10rem;
-  display: flex;
-  justify-content: space-between;
-  @media (min-width: ${breakpoints.sm}) {
-    width: 15rem;
-  }
-`
-
-const StyledLegalLink = styled(Link)`
+const StyledLink = styled(Link)`
   font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -53,11 +52,11 @@ const Footer = () => (
       <Link to="/" aria-label="home">
         <Logo color="white" size="1.5rem" />
       </Link>
-      <StyledLinksWrapper>
+      <div className="footer-links">
         {footerLinks.map(({ name, url }, key) => (
-          <StyledLegalLink key={key} to={url}>{name}</StyledLegalLink>
+          <StyledLink key={key} to={url}>{name}</StyledLink>
         ))}
-      </StyledLinksWrapper>
+      </div>
     </StyledContentWrapper>
   </StyledFooter>
 )

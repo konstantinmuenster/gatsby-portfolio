@@ -29,40 +29,35 @@ const StyledContentWrapper = styled(ContentWrapper)`
     @media (min-width: ${breakpoints.lg}) {
       margin-bottom: 4rem;
     }
+    .greetings {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .emoji {
+      margin-left: 0.75rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      @media (min-width: ${breakpoints.md}) {
+        margin-left: 1rem;
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+    .title {
+      margin-bottom: 1.5rem;
+      @media (min-width: ${breakpoints.md}) {
+        margin-bottom: 0;
+      }
+    }
+    .subtitle {
+      margin-top: -0.75rem;
+    }
+    .description {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
   }
-`
-
-const StyledGreetings = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`
-
-const StyledEmoji = styled(Img)`
-  margin-left: 0.75rem;
-  width: 2.2rem;
-  height: 2.2rem;
-  @media (min-width: ${breakpoints.md}) {
-    margin-left: 1rem;
-    width: 3rem;
-    height: 3rem;
-  }
-`
-
-const StyledH1 = styled.h1`
-  margin-bottom: 1.5rem;
-  @media (min-width: ${breakpoints.md}) {
-    margin-bottom: 0;
-  }
-`
-
-const StyledH2 = styled.h2`
-  margin-top: -0.75rem;
-`
-
-const StyledDescription = styled.div`
-  font-size: 1.125rem;
-  margin-bottom: 2rem;
 `
 
 const Hero = ({ content }) => {
@@ -71,22 +66,22 @@ const Hero = ({ content }) => {
   return (
     <StyledSection id="hero">
       <StyledContentWrapper>
-        <StyledH1>
-          <StyledGreetings>
+        <h1 className="title">
+          <div className="greetings">
             {frontmatter.greetings}
-            <StyledEmoji fluid={frontmatter.icon.childImageSharp.fluid} />
-          </StyledGreetings>
+            <Img className="emoji" fluid={frontmatter.icon.childImageSharp.fluid} />
+          </div>
           {frontmatter.title}
-        </StyledH1>
-        <StyledH2>
+        </h1>
+        <h2 className="subtitle">
           {frontmatter.subtitlePrefix}{" "}
           <Underlining color={colors.tertiary} hoverColor={colors.secondary} big>
             {frontmatter.subtitle}
           </Underlining>
-        </StyledH2>
-        <StyledDescription>
+        </h2>
+        <div className="description">
           <MDXRenderer>{body}</MDXRenderer>
-        </StyledDescription>
+        </div>
         <Social fontSize=".95rem" padding=".3rem 1.25rem" width="auto" />
       </StyledContentWrapper>
     </StyledSection>

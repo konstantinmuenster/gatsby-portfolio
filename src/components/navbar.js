@@ -21,43 +21,41 @@ const StyledNav = styled.nav`
       color: ${colors.primary};
     }
   }
-`
-
-const StyledNavLink = styled(Link)`
-  font-size: 1rem;
-  font-weight: 700;
-  text-align: center;
-  position: relative;
-  margin: 0 0 0 1.25rem;
-  padding: 0;
-  &::before {
-    transition: 200ms ease-out;
-    height: 0.1563rem;
-    content: "";
-    position: absolute;
-    background-color: ${colors.primary};
-    width: 0%;
-    bottom: -0.125rem;
+  .nav-link {
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    margin: 0 0 0 1.25rem;
+    padding: 0;
+    &::before {
+      transition: 200ms ease-out;
+      height: 0.1563rem;
+      content: "";
+      position: absolute;
+      background-color: ${colors.primary};
+      width: 0%;
+      bottom: -0.125rem;
+    }
+    &:hover::before {
+      width: 100%;
+    }
   }
-  &:hover::before {
-    width: 100%;
-  }
-`
-
-const StyledButton = styled(Link)`
-  width: auto;
-  height: auto;
-  font-weight: 700;
-  border-radius: ${borderRadius};
-  border: 0.125rem solid ${colors.primary};
-  background: ${colors.background};
-  transition: 20ms ease-out;
-  font-size: 1rem;
-  padding: 0.5rem 1.5rem;
-  margin: 0;
-  &:hover {
-    background: ${colors.primary};
-    color: #ffffff;
+  .cta-btn {
+    width: auto;
+    height: auto;
+    font-weight: 700;
+    border-radius: ${borderRadius};
+    border: 0.125rem solid ${colors.primary};
+    background: ${colors.background};
+    transition: 20ms ease-out;
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    margin: 0;
+    &:hover {
+      background: ${colors.primary};
+      color: #ffffff;
+    }
   }
 `
 
@@ -67,12 +65,12 @@ const Navbar = () => {
     <StyledNav>
       {menu.map(({ name, url }, key) => {
         return (
-          <StyledNavLink key={key} to={url}>
+          <Link className="nav-link" key={key} to={url}>
             {name}
-          </StyledNavLink>
+          </Link>
         )
       })}
-      <StyledButton to={button.url}>{button.name}</StyledButton>
+      <Link className="cta-btn" to={button.url}>{button.name}</Link>
     </StyledNav>
   )
 }
