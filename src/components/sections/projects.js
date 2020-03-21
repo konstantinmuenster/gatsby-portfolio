@@ -60,6 +60,28 @@ const StyledContentWrapper = styled(ContentWrapper)`
         padding: 0;
         overflow: visible;
       }
+      /* Show scrollbar if desktop and wrapper width > viewport width */
+      @media (hover: hover) {
+        &::-webkit-scrollbar {
+          display: block;
+          -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:horizontal {
+          height: 0.8rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 8px;
+          border: 0.2rem solid white;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: #fff;
+          border-radius: 8px;
+        }
+      }
     }
     .counter {
       position: absolute;
@@ -97,7 +119,7 @@ const StyledProject = styled.div`
     flex-shrink: 1;
     max-width: 62.5rem;
     padding-right: 0;
-    // Positioning of image and details should vary
+    /* Positioning of image and details should vary */
     flex-direction: ${({ position }) =>
       position % 2 !== 0 ? "row" : "row-reverse"};
   }

@@ -25,7 +25,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     justify-content: space-between;
     align-items: center;
     .footer-links {
-      // Adjust width of links wrapper accordingly
+      /* Adjust width of links wrapper accordingly */
       width: 10rem;
       display: flex;
       justify-content: space-between;

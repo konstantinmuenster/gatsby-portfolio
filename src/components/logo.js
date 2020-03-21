@@ -13,7 +13,7 @@ const StyledLogo = styled.div`
   font-weight: 900;
   color: ${({ color }) => (color ? color : "black")};
 
-  // Disable effects when sidebar is open
+  /* Disable effects when sidebar is open */
   filter: none !important;
   pointer-events: auto !important;
   user-select: auto !important;

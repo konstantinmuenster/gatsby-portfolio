@@ -42,11 +42,33 @@ const StyledContentWrapper = styled(ContentWrapper)`
       margin: -2rem 0 0 0;
       padding: 0 2rem;
       &::-webkit-scrollbar {
-          display: none;
+        display: none;
       }
       @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
         padding: 0;
         overflow: visible;
+      }
+      /* Show scrollbar if desktop and wrapper width > viewport width */
+      @media (hover: hover) {
+        &::-webkit-scrollbar {
+          display: block;
+          -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:horizontal {
+          height: 0.8rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 8px;
+          border: 0.2rem solid white;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: #fff;
+          border-radius: 8px;
+        }
       }
     }
     .card {
@@ -59,7 +81,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       margin: 2rem 1rem;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.16);
       border-radius: ${({ theme }) => theme.borderRadius};
-      transition: box-shadow .3s ease-out;
+      transition: box-shadow 0.3s ease-out;
       &:hover {
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.32);
       }
@@ -67,7 +89,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
         box-shadow: inset 0 -1rem 0 ${({ theme }) => theme.colors.secondary};
       }
       @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-        margin: 2rem auto
+        margin: 2rem auto;
       }
       .category {
         color: ${({ theme }) => theme.colors.primary};
@@ -82,7 +104,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       .date {
         font-size: 0.75rem;
         color: #888888;
-        letter-spacing: +.5px;
+        letter-spacing: +0.5px;
       }
     }
   }

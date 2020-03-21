@@ -40,7 +40,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
 
 const StyledInterests = styled.div`
   display: grid;
-  // Calculate how many columns are needed, depending on interests count
+  /* Calculate how many columns are needed, depending on interests count */
   grid-template-columns: repeat(
     ${({ itemCount }) => Math.ceil(itemCount / 2)},
     15.625rem
@@ -56,7 +56,7 @@ const StyledInterests = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-  // Workaround: https://stackoverflow.com/questions/38993170/last-margin-padding-collapsing-in-flexbox-grid-layout
+  /* Workaround: https://stackoverflow.com/questions/38993170/last-margin-padding-collapsing-in-flexbox-grid-layout */
   &::after {
     content: "";
     width: ${({ itemCount }) =>
@@ -68,6 +68,29 @@ const StyledInterests = styled.div`
     overflow: visible;
     padding: 0;
   }
+  /* Show scrollbar if desktop and wrapper width > viewport width */
+  @media (hover: hover) {
+    &::-webkit-scrollbar {
+      display: block;
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+      height: 0.8rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      border: 0.2rem solid white;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+      border-radius: 8px;
+    }
+  }
+
   .interest {
     width: 15.625rem;
     height: 3rem;

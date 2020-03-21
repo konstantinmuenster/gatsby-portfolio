@@ -20,7 +20,7 @@ const StyledSection = styled.section`
 const StyledContentWrapper = styled(ContentWrapper)`
   && {
     width: 100%;
-    // Don't stretch container over the full page width
+    /* Don't stretch container over the full page width */
     max-width: 45rem;
     height: 100%;
     display: inline-block;

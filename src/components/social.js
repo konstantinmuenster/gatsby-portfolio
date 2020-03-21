@@ -7,7 +7,7 @@ const { socialMedia } = config
 
 const StyledSocialWrapper = styled.div`
   display: grid;
-  // Calculate columns, depending on how many profiles there are
+  /* Calculate columns, depending on how many profiles there are */
   grid-template-columns: repeat(${({ itemCount }) => itemCount + 1}, auto);
   justify-content: start;
   justify-items: start;
@@ -24,10 +24,33 @@ const StyledSocialWrapper = styled.div`
     display: none;
   }
 
-  // Workaround: https://stackoverflow.com/questions/38993170/last-margin-padding-collapsing-in-flexbox-grid-layout
+  /* Workaround: https://stackoverflow.com/questions/38993170/last-margin-padding-collapsing-in-flexbox-grid-layout */
   &::after {
     content: "";
     width: 2.5rem;
+  }
+
+  /* Show scrollbar if desktop and wrapper width > viewport width */
+  @media (hover: hover) {
+    &::-webkit-scrollbar {
+      display: block;
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+      height: 0.8rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      border: 0.2rem solid white;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+      border-radius: 8px;
+    }
   }
 
   a {
@@ -62,7 +85,7 @@ const StyledSocialProfile = styled.a`
     color: #ffffff;
   }
   &:hover svg {
-    // Change svg color to white
+    /* Change svg color to white */
     filter: brightness(0) invert(1);
   }
   svg {
