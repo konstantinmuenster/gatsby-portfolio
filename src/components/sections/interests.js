@@ -160,7 +160,7 @@ const Interests = ({ content }) => {
                 onClick={() => showMoreItems()}
                 type="button"
                 textAlign="left"
-                color={({ theme }) => theme.colors.primary}
+                color="primary"
               >
                 + Load more
               </Button>

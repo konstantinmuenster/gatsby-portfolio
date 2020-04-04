@@ -81,10 +81,7 @@ const Contact = ({ content }) => {
             <strong>{frontmatter.name}</strong>
             <br />
             <a href={`mailto:${frontmatter.email}`}>
-              <Underlining
-                color={({ theme }) => theme.colors.secondary}
-                hoverColor={({ theme }) => theme.colors.secondary}
-              >
+              <Underlining color="secondary" hoverColor="secondary">
                 {frontmatter.email}
               </Underlining>
             </a>

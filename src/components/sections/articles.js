@@ -112,8 +112,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
-const Articles = props => {
-  const MAX_ARTICLES = 3
+const Articles = () => {
   const { isIntroDone } = useContext(Context).state
   const [articles, setArticles] = useState()
 
@@ -158,10 +157,7 @@ const Articles = props => {
                 >
                   <div className="card">
                     <span className="category">
-                      <Underlining
-                        color={({ theme }) => theme.colors.tertiary}
-                        hoverColor={({ theme }) => theme.colors.secondary}
-                      >
+                      <Underlining color="tertiary" hoverColor="secondary">
                         {item.categories[2]}
                       </Underlining>
                     </span>
