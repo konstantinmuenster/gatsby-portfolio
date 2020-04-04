@@ -131,8 +131,10 @@ const Interests = ({ content }) => {
   useEffect(() => {
     const sequence = async () => {
       if (onScreen) {
+        // i receives the value of the custom prop - can be used to stagger
+        // the animation of each "interest" element
         await interestControls.start(i => ({
-          opacity: 1, transition: { delay: i * 0.1 }
+          opacity: 1, scaleY: 1, transition: { delay: i * 0.1 }
         }))
         await buttonControls.start({ opacity: 1 })
       }
@@ -148,20 +150,21 @@ const Interests = ({ content }) => {
         <h3 className="section-title">{frontmatter.title}</h3>
         <StyledInterests itemCount={interests.length} ref={ref}>
           {interests.slice(0, shownInterests).map(({ name, icon }, key) => (
-            <motion.div className="interest" key={key} custom={key} initial={{ opacity: 0 }} animate={interestControls}>
+            <motion.div className="interest" key={key} custom={key} initial={{ opacity: 0, scaleY: 0 }} animate={interestControls}>
               <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
             </motion.div>
           ))}
           {shownInterests < interests.length && (
             <motion.div initial={{ opacity: 0 }} animate={buttonControls}>
-            <Button
-              onClick={() => showMoreItems()}
-              type="button"
-              textAlign="left"
-              color={({ theme }) => theme.colors.primary}
-            >
-              + Load more
-            </Button></motion.div>
+              <Button
+                onClick={() => showMoreItems()}
+                type="button"
+                textAlign="left"
+                color={({ theme }) => theme.colors.primary}
+              >
+                + Load more
+              </Button>
+            </motion.div>
           )}
         </StyledInterests>
       </StyledContentWrapper>

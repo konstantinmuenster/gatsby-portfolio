@@ -40,7 +40,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
 const Privacy = ({ data }) => {
   const { body, frontmatter } = data.privacy.edges[0].node
   return (
-    <Layout>
+    <Layout splashScreen={false}>
       <SEO title="Privacy Policy - Konstantin Münster" meta={[{ name: 'robots', content: 'noindex'}]} />
       <StyledSection id={frontmatter.title}>
         <StyledContentWrapper>

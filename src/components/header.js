@@ -78,7 +78,6 @@ const Header = () => {
   const { isIntroDone } = useContext(Context).state
   const [open, setOpen] = useState(false)
   const [windowWidth, setWindowWidth] = useState(0)
-
   const headerControls = useAnimation()
 
   useEffect(() => {

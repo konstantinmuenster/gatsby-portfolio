@@ -40,7 +40,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
 const Imprint = ({ data }) => {
   const { body, frontmatter } = data.imprint.edges[0].node
   return (
-    <Layout>
+    <Layout splashScreen={false}>
       <SEO title="Imprint - Konstantin Münster" meta={[{ name: 'robots', content: 'noindex'}]} />
       <StyledSection id={frontmatter.title}>
         <StyledContentWrapper>

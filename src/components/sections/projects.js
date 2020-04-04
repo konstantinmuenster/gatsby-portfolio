@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Img from "gatsby-image"
 import VisibilitySensor from "react-visibility-sensor"
+import { motion } from "framer-motion"
 
+import { useOnScreen } from "../../hooks"
 import config from "../../config"
 
+import { fade, fadeUp } from "../../styles/Animations"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 import Button from "../../styles/Button"
@@ -102,7 +105,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
-const StyledProject = styled.div`
+const StyledProject = styled(motion.div)`
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
@@ -170,60 +173,90 @@ const Projects = ({ content }) => {
   const sectionDetails = content[0].node
   const projects = content.slice(1, content.length)
 
+  // store visibility of projects in state
+  const [onScreen, setOnScreen] = useState({})
+
   // visibleProject is needed to show which project is currently
   // being viewed in the horizontal slider on mobile and tablet
   const [visibleProject, setVisibleProject] = useState(1)
 
+  // set visibility for all projects initially to false
+  useEffect(() => {
+    let initial = {}
+    projects.forEach(project => { initial[project.node.frontmatter.position] = false })
+    setOnScreen(initial)
+  }, [])
+
   // set first project as the visible one after component did mount
   useEffect(() => setVisibleProject(1), [])
+
+  const titleRef = useRef()
+  const titleOnScreen = useOnScreen(titleRef)
+  const buttonRef = useRef()
+  const buttonOnScreen = useOnScreen(buttonRef)
+
+  // if project gets into viewport, set its visibility to true
+  const handleOnScreen = el => {
+    if (!onScreen[el]) {
+      const updatedOnScreen = { ...onScreen }
+      updatedOnScreen[el] = true
+      setOnScreen(updatedOnScreen)
+    }
+  }
 
   return (
     <StyledSection id="projects">
       <StyledContentWrapper>
-        <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
-        <div className="counter">
-          {visibleProject} / {projects.length}
-        </div>
+        <motion.div ref={titleRef} initial={{ opacity: 0 }} animate={fade(titleOnScreen)}>
+          <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
+          <div className="counter">{visibleProject} / {projects.length}</div>
+        </motion.div>
         <div className="projects">
           {projects.map(project => {
             const { body, frontmatter } = project.node
             return (
-              <StyledProject
-                position={frontmatter.position}
+              <VisibilitySensor
                 key={frontmatter.position}
+                onChange={() => handleOnScreen(frontmatter.position)}
+                partialVisibility={true}
+                minTopValue={100}
               >
-                <div className="details">
-                  <div className="category">
-                    {frontmatter.emoji} {frontmatter.category}
-                  </div>
-                  <div className="title">{frontmatter.title}</div>
-                  <MDXRenderer>{body}</MDXRenderer>
-                  <div className="tags">
-                    {frontmatter.tags.map(tag => (
-                      <Underlining
-                        key={tag}
-                        color={({ theme }) => theme.colors.secondary}
-                        hoverColor={({ theme }) => theme.colors.secondary}
-                      >
-                        {tag}
-                      </Underlining>
-                    ))}
-                  </div>
-                </div>
-                {/* If image in viewport changes, update state accordingly */}
-                <VisibilitySensor
-                  onChange={() => setVisibleProject(frontmatter.position)}
+                <StyledProject
+                  position={frontmatter.position}
+                  initial={{ opacity: 0 }}
+                  animate={fadeUp(onScreen[frontmatter.position])}
                 >
-                  <Img
-                    className="screenshot"
-                    fluid={frontmatter.screenshot.childImageSharp.fluid}
-                  />
-                </VisibilitySensor>
-              </StyledProject>
+                  <div className="details">
+                    <div className="category">
+                      {frontmatter.emoji} {frontmatter.category}
+                    </div>
+                    <div className="title">{frontmatter.title}</div>
+                    <MDXRenderer>{body}</MDXRenderer>
+                    <div className="tags">
+                      {frontmatter.tags.map(tag => (
+                        <Underlining
+                          key={tag}
+                          color={({ theme }) => theme.colors.secondary}
+                          hoverColor={({ theme }) => theme.colors.secondary}
+                        >
+                          {tag}
+                        </Underlining>
+                      ))}
+                    </div>
+                  </div>
+                  {/* If image in viewport changes, update state accordingly */}
+                  <VisibilitySensor onChange={() => setVisibleProject(frontmatter.position)}>
+                    <Img className="screenshot" fluid={frontmatter.screenshot.childImageSharp.fluid} />
+                  </VisibilitySensor>
+                </StyledProject>
+              </VisibilitySensor>
             )
           })}
         </div>
-        <a
+        <motion.a
+          ref={buttonRef}
+          initial={{ opacity: 0 }}
+          animate={fade(buttonOnScreen)}
           className="github-btn"
           href={socialMedia.filter(profile => profile.name === "Github")[0].url}
           target="_blank"
@@ -238,7 +271,7 @@ const Projects = ({ content }) => {
           >
             <IconGithub color="#ffffff" /> See More On Github
           </Button>
-        </a>
+        </motion.a>
       </StyledContentWrapper>
     </StyledSection>
   )

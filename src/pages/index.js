@@ -12,7 +12,7 @@ import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
 
 const IndexPage = ({ data }) => (
-  <Layout>
+  <Layout splashScreen={true}>
     <SEO title="Konstantin Münster - Based in Hamburg." />
     <Hero content={data.hero.edges} />
     {/* Articles is populated via Medium RSS Feed fetch */}

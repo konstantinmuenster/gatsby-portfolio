@@ -29,7 +29,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
 `
 
 const NotFoundPage = () => (
-  <Layout>
+  <Layout splashScreen={false}>
     <SEO title="404: Not found" meta={[{ name: 'robots', content: 'noindex'}]} />
     <StyledSection>
       <StyledContentWrapper>

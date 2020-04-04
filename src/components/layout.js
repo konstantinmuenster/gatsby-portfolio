@@ -23,9 +23,13 @@ const StyledLayoutWrapper = styled.div`
   grid-template-columns: 100%;
 `
 
-const Layout = ({ children }) => {
+const Layout = ({ children, splashScreen }) => {
+  // you can determine whether you want to have a splashScreen
+  // for each page in the respective page component
+  // if splashScreen = false, we set isIntroDone = true to skip
+  // the splashScreen
   const [state, setState] = useState({
-    isIntroDone: false,
+    isIntroDone: splashScreen ? false : true,
   })
   return (
     <StyledLayoutWrapper>
