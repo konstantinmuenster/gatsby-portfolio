@@ -1,7 +1,8 @@
-import React from "react"
-import styled, { ThemeProvider }  from "styled-components"
+import React, { useState } from "react"
+import styled, { ThemeProvider } from "styled-components"
 import "typeface-roboto"
 
+import Context from "../context/"
 import Theme from "../styles/Theme"
 import GlobalStyle from "../styles/GlobalStyle"
 
@@ -22,15 +23,22 @@ const StyledLayoutWrapper = styled.div`
   grid-template-columns: 100%;
 `
 
-const Layout = ({ children }) => (
-  <StyledLayoutWrapper>
-    <ThemeProvider theme={Theme}>
-      <GlobalStyle />
-      <Header />
-      <main id="main-content">{children}</main>
-      <Footer />
-    </ThemeProvider>
-  </StyledLayoutWrapper>
-)
+const Layout = ({ children }) => {
+  const [state, setState] = useState({
+    isIntroDone: false,
+  })
+  return (
+    <StyledLayoutWrapper>
+      <Context.Provider value={{ state, setState }}>
+        <ThemeProvider theme={Theme}>
+          <GlobalStyle />
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </ThemeProvider>
+      </Context.Provider>
+    </StyledLayoutWrapper>
+  )
+}
 
 export default Layout

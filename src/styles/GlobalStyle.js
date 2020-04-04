@@ -36,7 +36,11 @@ const GlobalStyle = createGlobalStyle`
               user-select: none;
             }
           }
-    }
+        }
+        &.splashScreen {
+              position: fixed;
+              overflow: hidden;
+        }
 
     a {
         display: inline-block;

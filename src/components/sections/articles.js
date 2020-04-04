@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import styled from "styled-components"
+import { motion, useAnimation } from "framer-motion"
 
+import Context from "../../context"
 import config from "../../config"
 import { parseDate } from "../../utils"
 
@@ -9,11 +11,11 @@ import Underlining from "../../styles/Underlining"
 
 const { mediumRssFeed } = config
 
-const StyledSection = styled.section`
+const StyledSection = motion.custom(styled.section`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
-`
+`)
 
 const StyledContentWrapper = styled(ContentWrapper)`
   && {
@@ -111,7 +113,11 @@ const StyledContentWrapper = styled(ContentWrapper)`
 `
 
 const Articles = props => {
-  const [articles, setArticles] = useState(null)
+  const MAX_ARTICLES = 3
+  const { isIntroDone } = useContext(Context).state
+  const [articles, setArticles] = useState()
+
+  const articlesControls = useAnimation()
 
   useEffect(() => {
     fetch(mediumRssFeed, { headers: { Accept: "application/json" } })
@@ -125,8 +131,18 @@ const Articles = props => {
       .catch(error => console.log(error))
   }, [])
 
+  useEffect(() => {
+    if (isIntroDone) {
+      articlesControls.start({ opacity: 1, y: 0, transition: { delay: 1 } })
+    }
+  }, [isIntroDone])
+
   return (
-    <StyledSection id="articles">
+    <StyledSection
+      id="articles"
+      initial={{ opacity: 0, y: 10 }}
+      animate={articlesControls}
+    >
       <StyledContentWrapper>
         <h3 className="section-title">Latest Articles on Medium</h3>
         <div className="articles">

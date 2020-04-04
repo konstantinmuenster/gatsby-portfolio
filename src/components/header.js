@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { Link } from "gatsby"
 import Helmet from "react-helmet"
 import styled from "styled-components"
+import { motion, useAnimation } from "framer-motion"
 
+import Context from "../context"
 import { detectMobileAndTablet, isSSR } from "../utils/"
 
 import ContentWrapper from "../styles/ContentWrapper"
@@ -11,11 +13,11 @@ import Logo from "./logo"
 import Sidebar from "./sidebar"
 import Navbar from "./navbar"
 
-const StyledHeader = styled.header`
+const StyledHeader = motion.custom(styled.header`
   width: 100%;
   height: ${({ theme }) => theme.headerHeight};
   background: ${({ theme }) => theme.colors.background};
-`
+`)
 
 const StyledContentWrapper = styled(ContentWrapper)`
   && {
@@ -73,12 +75,11 @@ const StyledBurger = styled.button`
 `
 
 const Header = () => {
-
-  // open is needed to know if sidebar is opened or not
+  const { isIntroDone } = useContext(Context).state
   const [open, setOpen] = useState(false)
-
-  // windowWidth is needed to detect if sidebar or navbar should be rendered
   const [windowWidth, setWindowWidth] = useState(0)
+
+  const headerControls = useAnimation()
 
   useEffect(() => {
     let handleWindowSizeChange
@@ -93,17 +94,24 @@ const Header = () => {
     // Add event listener to update windowWidth in state
     window.addEventListener("resize", handleWindowSizeChange)
 
-    // Add cleanup function to remove event listener when component unmounts
     return () => window.removeEventListener("resize", handleWindowSizeChange)
-
   }, [windowWidth])
 
-  // Render sidebar or navbar, depending on windowWidth
+  useEffect(() => {
+    if (isIntroDone) {
+      headerControls.start({ opacity: 1, y: 0, transition: { delay: 0.2 } })
+    }
+  }, [isIntroDone])
+
   let navigation
   if (detectMobileAndTablet(windowWidth)) {
     navigation = (
       <>
-        <StyledBurger aria-controls="sidebar" open={open} onClick={() => setOpen(!open)}>
+        <StyledBurger
+          aria-controls="sidebar"
+          open={open}
+          onClick={() => setOpen(!open)}
+        >
           <div />
           <div />
           <div />
@@ -116,7 +124,7 @@ const Header = () => {
   }
 
   return (
-    <StyledHeader>
+    <StyledHeader initial={{ opacity: 0, y: -10 }} animate={headerControls}>
       {/* add blur class to body when sidebar is opened */}
       <Helmet bodyAttributes={{ class: open ? "blur" : "" }} />
       <StyledContentWrapper>

@@ -1,13 +1,15 @@
-import React from "react"
+import React, { useEffect, useContext } from "react"
 import styled from "styled-components"
 import Img from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import { motion, useAnimation } from "framer-motion"
 
+import Context from "../../context/"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 
 import Social from "../social"
-
+import SplashScreen from "../splashScreen"
 
 const StyledSection = styled.section`
   width: 100%;
@@ -60,27 +62,64 @@ const StyledContentWrapper = styled(ContentWrapper)`
 
 const Hero = ({ content }) => {
   const { frontmatter, body } = content[0].node
+  const { isIntroDone } = useContext(Context).state
 
+  const greetingsControls = useAnimation()
+  const emojiControls = useAnimation()
+  const socialControls = useAnimation()
+
+  useEffect(() => {
+    const pageLoadSequence = async () => {
+      if (isIntroDone) {
+        emojiControls.start({
+          rotate: [0, -10, 12, -10, 9, 0, 0, 0, 0, 0, 0],
+          transition: { duration: 2.5, loop: 3, repeatDelay: 1 },
+        })
+        await greetingsControls.start({
+          opacity: 1,
+          y: 0,
+          transition: { delay: 0.4 },
+        })
+        await socialControls.start({
+          opacity: 1,
+          x: 0,
+        })
+      }
+    }
+    pageLoadSequence()
+  }, [isIntroDone])
+  
   return (
     <StyledSection id="hero">
+      {!isIntroDone && <SplashScreen />}
       <StyledContentWrapper>
-        <h1 className="title">
-          <div className="greetings">
-            {frontmatter.greetings}
-            <Img className="emoji" fluid={frontmatter.icon.childImageSharp.fluid} />
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={greetingsControls}>
+          <h1 className="title">
+            <div className="greetings">
+              {frontmatter.greetings}
+              <motion.div animate={emojiControls} style={{ originX: 0.7, originY: 0.7 }}>
+                <Img className="emoji" fluid={frontmatter.icon.childImageSharp.fluid} />
+              </motion.div>
+            </div>
+            {frontmatter.title}
+          </h1>
+          <h2 className="subtitle">
+            {frontmatter.subtitlePrefix}{" "}
+            <Underlining
+              color={({ theme }) => theme.colors.tertiary}
+              hoverColor={({ theme }) => theme.colors.secondary}
+              big
+            >
+              {frontmatter.subtitle}
+            </Underlining>
+          </h2>
+          <div className="description">
+            <MDXRenderer>{body}</MDXRenderer>
           </div>
-          {frontmatter.title}
-        </h1>
-        <h2 className="subtitle">
-          {frontmatter.subtitlePrefix}{" "}
-          <Underlining color={({ theme }) => theme.colors.tertiary} hoverColor={({ theme }) => theme.colors.secondary} big>
-            {frontmatter.subtitle}
-          </Underlining>
-        </h2>
-        <div className="description">
-          <MDXRenderer>{body}</MDXRenderer>
-        </div>
-        <Social fontSize=".95rem" padding=".3rem 1.25rem" width="auto" />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, x: 10 }} animate={socialControls}>
+          <Social fontSize=".95rem" padding=".3rem 1.25rem" width="auto" />
+        </motion.div>
       </StyledContentWrapper>
     </StyledSection>
   )

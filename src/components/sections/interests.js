@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import Img from "gatsby-image"
+import { motion, useAnimation } from "framer-motion"
 
 import { detectMobileAndTablet, isSSR } from "../../utils"
+import { useOnScreen }  from "../../hooks/"
 
 import ContentWrapper from "../../styles/ContentWrapper"
 import Button from "../../styles/Button"
@@ -112,6 +114,11 @@ const Interests = ({ content }) => {
 
   const [shownInterests, setShownInterests] = useState(shownItems)
 
+  const ref = useRef()
+  const onScreen = useOnScreen(ref)
+  const interestControls = useAnimation()
+  const buttonControls = useAnimation()
+
   useEffect(() => {
     // If mobile or tablet, show all interests initially
     // Otherwise interests.mdx will determine how many interests are shown
@@ -121,19 +128,32 @@ const Interests = ({ content }) => {
     }
   }, [interests])
 
+  useEffect(() => {
+    const sequence = async () => {
+      if (onScreen) {
+        await interestControls.start(i => ({
+          opacity: 1, transition: { delay: i * 0.1 }
+        }))
+        await buttonControls.start({ opacity: 1 })
+      }
+    }
+    sequence()
+  }, [onScreen, shownInterests])
+
   const showMoreItems = () => setShownInterests(shownInterests + 4)
 
   return (
     <StyledSection id="interests">
       <StyledContentWrapper>
         <h3 className="section-title">{frontmatter.title}</h3>
-        <StyledInterests itemCount={interests.length}>
+        <StyledInterests itemCount={interests.length} ref={ref}>
           {interests.slice(0, shownInterests).map(({ name, icon }, key) => (
-            <div className="interest" key={key}>
+            <motion.div className="interest" key={key} custom={key} initial={{ opacity: 0 }} animate={interestControls}>
               <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
-            </div>
+            </motion.div>
           ))}
           {shownInterests < interests.length && (
+            <motion.div initial={{ opacity: 0 }} animate={buttonControls}>
             <Button
               onClick={() => showMoreItems()}
               type="button"
@@ -141,7 +161,7 @@ const Interests = ({ content }) => {
               color={({ theme }) => theme.colors.primary}
             >
               + Load more
-            </Button>
+            </Button></motion.div>
           )}
         </StyledInterests>
       </StyledContentWrapper>

@@ -1,14 +1,18 @@
-import React from "react"
+import React, { useRef } from "react"
 import styled from "styled-components"
 import Img from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import { motion } from "framer-motion"
 
+import { useOnScreen } from "../../hooks"
+
+import { fadeUp } from "../../styles/Animations" 
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 
 import Social from "../social"
 
-const StyledSection = styled.section`
+const StyledSection = styled(motion.section)`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
@@ -60,8 +64,11 @@ const StyledContentWrapper = styled(ContentWrapper)`
 const Contact = ({ content }) => {
   const { body, frontmatter } = content[0].node
 
+  const ref = useRef()
+  const onScreen = useOnScreen(ref)
+
   return (
-    <StyledSection id="contact">
+    <StyledSection id="contact" ref={ref} initial={{opacity: 0}} animate={fadeUp(onScreen)}>
       <StyledContentWrapper>
         <h3>{frontmatter.title}</h3>
         <MDXRenderer>{body}</MDXRenderer>
