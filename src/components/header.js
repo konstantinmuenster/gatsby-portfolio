@@ -121,7 +121,7 @@ const Header = () => {
       <Helmet bodyAttributes={{ class: open ? "blur" : "" }} />
       <StyledContentWrapper>
         <Link to="/" aria-label="home">
-          <Logo color={({ theme }) => theme.colors.primary} size="2rem" />
+          <Logo color="primary" size="2rem" />
         </Link>
         {navigation}
       </StyledContentWrapper>

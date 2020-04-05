@@ -73,7 +73,7 @@ const Hero = ({ content }) => {
         </h1>
         <h2 className="subtitle">
           {frontmatter.subtitlePrefix}{" "}
-          <Underlining color={({ theme }) => theme.colors.tertiary} hoverColor={({ theme }) => theme.colors.secondary} big>
+          <Underlining color="tertiary" hoverColor="secondary" big>
             {frontmatter.subtitle}
           </Underlining>
         </h2>

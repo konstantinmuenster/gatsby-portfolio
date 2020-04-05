@@ -142,10 +142,7 @@ const Articles = props => {
                 >
                   <div className="card">
                     <span className="category">
-                      <Underlining
-                        color={({ theme }) => theme.colors.tertiary}
-                        hoverColor={({ theme }) => theme.colors.secondary}
-                      >
+                      <Underlining color="tertiary" hoverColor="secondary">
                         {item.categories[2]}
                       </Underlining>
                     </span>

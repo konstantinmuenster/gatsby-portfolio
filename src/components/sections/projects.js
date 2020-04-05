@@ -200,11 +200,7 @@ const Projects = ({ content }) => {
                   <MDXRenderer>{body}</MDXRenderer>
                   <div className="tags">
                     {frontmatter.tags.map(tag => (
-                      <Underlining
-                        key={tag}
-                        color={({ theme }) => theme.colors.secondary}
-                        hoverColor={({ theme }) => theme.colors.secondary}
-                      >
+                      <Underlining key={tag} color="secondary" hoverColor="secondary">
                         {tag}
                       </Underlining>
                     ))}
@@ -233,7 +229,7 @@ const Projects = ({ content }) => {
           <Button
             type="button"
             textAlign="center"
-            color={({ theme }) => theme.colors.primary}
+            color="primary"
             center
           >
             <IconGithub color="#ffffff" /> See More On Github
