@@ -7,7 +7,6 @@ import { motion } from "framer-motion"
 import { useOnScreen }  from "../../hooks/"
 
 import ContentWrapper from "../../styles/ContentWrapper"
-import { fadeUp, fadeLeft } from "../../styles/Animations"
 
 const StyledSection = styled.section`
   width: 100%;
@@ -64,21 +63,32 @@ const StyledContentWrapper = styled(ContentWrapper)`
 const About = ({ content }) => {
   const { frontmatter, body } = content[0].node
 
-  const textRef = useRef()
-  const imageRef = useRef()
-  const textOnScreen = useOnScreen(textRef)
-  const imageOnScreen = useOnScreen(imageRef)
+  // Required for animating the text content
+  const tRef = useRef()
+  const tOnScreen = useOnScreen(tRef)
+  const tVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  }
+
+  // Required for animating the image
+  const iRef = useRef()
+  const iOnScreen = useOnScreen(iRef)
+  const iVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0 },
+  }
 
   return (
     <StyledSection id="about">
       <StyledContentWrapper>
-        <motion.div className="inner-wrapper" ref={textRef} initial={{opacity:0}} animate={fadeUp(textOnScreen)}>
+        <motion.div className="inner-wrapper" ref={tRef} variants={tVariants} animate={tOnScreen ? "visible" : "hidden"}>
           <h3 className="section-title">{frontmatter.title}</h3>
           <div className="text-content">
             <MDXRenderer>{body}</MDXRenderer>
           </div>
         </motion.div>
-        <motion.div className="image-content" ref={imageRef} initial={{opacity:0}} animate={fadeLeft(imageOnScreen)}>
+        <motion.div className="image-content" ref={iRef} variants={iVariants} animate={iOnScreen ? "visible" : "hidden"}>
           <Img className="about-author" fluid={frontmatter.image.childImageSharp.fluid} />
         </motion.div>
       </StyledContentWrapper>

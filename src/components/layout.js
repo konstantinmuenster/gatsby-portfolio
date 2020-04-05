@@ -24,6 +24,7 @@ const StyledLayoutWrapper = styled.div`
 `
 
 const Layout = ({ children, splashScreen }) => {
+  
   // you can determine whether you want to have a splashScreen
   // for each page in the respective page component
   // if splashScreen = false, we set isIntroDone = true to skip
@@ -31,6 +32,7 @@ const Layout = ({ children, splashScreen }) => {
   const [state, setState] = useState({
     isIntroDone: splashScreen ? false : true,
   })
+
   return (
     <StyledLayoutWrapper>
       <Context.Provider value={{ state, setState }}>

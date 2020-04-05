@@ -78,29 +78,27 @@ const Header = () => {
   const { isIntroDone } = useContext(Context).state
   const [open, setOpen] = useState(false)
   const [windowWidth, setWindowWidth] = useState(0)
-  const headerControls = useAnimation()
 
+  
   useEffect(() => {
     let handleWindowSizeChange
-
     // if (isSSR) is necessary to prevent error during the gatsby build
     if (!isSSR) {
       handleWindowSizeChange = () => setWindowWidth(window.innerWidth)
       // set initial innerWidth when component mounts
       setWindowWidth(window.innerWidth)
     }
-
     // Add event listener to update windowWidth in state
     window.addEventListener("resize", handleWindowSizeChange)
-
     return () => window.removeEventListener("resize", handleWindowSizeChange)
   }, [windowWidth])
 
+  // Required for animation - start after the splashScreen sequence is done
+  const controls = useAnimation()
   useEffect(() => {
-    if (isIntroDone) {
-      headerControls.start({ opacity: 1, y: 0, transition: { delay: 0.2 } })
-    }
-  }, [isIntroDone])
+    if (isIntroDone) controls.start({ opacity: 1, y: 0, transition: { delay: 0.2 } })
+  }, [isIntroDone, controls])
+  
 
   let navigation
   if (detectMobileAndTablet(windowWidth)) {
@@ -123,7 +121,7 @@ const Header = () => {
   }
 
   return (
-    <StyledHeader initial={{ opacity: 0, y: -10 }} animate={headerControls}>
+    <StyledHeader initial={{ opacity: 0, y: -10 }} animate={controls}>
       {/* add blur class to body when sidebar is opened */}
       <Helmet bodyAttributes={{ class: open ? "blur" : "" }} />
       <StyledContentWrapper>

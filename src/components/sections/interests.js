@@ -116,8 +116,9 @@ const Interests = ({ content }) => {
 
   const ref = useRef()
   const onScreen = useOnScreen(ref)
-  const interestControls = useAnimation()
-  const buttonControls = useAnimation()
+
+  const iControls = useAnimation()
+  const bControls = useAnimation()
 
   useEffect(() => {
     // If mobile or tablet, show all interests initially
@@ -133,14 +134,14 @@ const Interests = ({ content }) => {
       if (onScreen) {
         // i receives the value of the custom prop - can be used to stagger
         // the animation of each "interest" element
-        await interestControls.start(i => ({
+        await iControls.start(i => ({
           opacity: 1, scaleY: 1, transition: { delay: i * 0.1 }
         }))
-        await buttonControls.start({ opacity: 1 })
+        await bControls.start({ opacity: 1, scaleY: 1 })
       }
     }
     sequence()
-  }, [onScreen, shownInterests])
+  }, [onScreen, shownInterests, iControls, bControls])
 
   const showMoreItems = () => setShownInterests(shownInterests + 4)
 
@@ -150,12 +151,18 @@ const Interests = ({ content }) => {
         <h3 className="section-title">{frontmatter.title}</h3>
         <StyledInterests itemCount={interests.length} ref={ref}>
           {interests.slice(0, shownInterests).map(({ name, icon }, key) => (
-            <motion.div className="interest" key={key} custom={key} initial={{ opacity: 0, scaleY: 0 }} animate={interestControls}>
-              <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
+            <motion.div 
+              className="interest" 
+              key={key} 
+              custom={key} 
+              initial={{ opacity: 0, scaleY: 0 }}
+              animate={iControls}
+            >
+                <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
             </motion.div>
           ))}
           {shownInterests < interests.length && (
-            <motion.div initial={{ opacity: 0 }} animate={buttonControls}>
+            <motion.div initial={{ opacity: 0, scaleY: 0 }} animate={bControls}>
               <Button
                 onClick={() => showMoreItems()}
                 type="button"

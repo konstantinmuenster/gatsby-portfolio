@@ -9,6 +9,7 @@ module.exports = {
     siteIcon: "src/content/favicon.png", // Relative to gatsby-config file
 
     mediumRssFeed: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40konstantin.muenster&api_key=51t0yukvezbsj6vz5h46icya39agdbxw1snykm3v",
+    shownArticles: 3,
     
     socialMedia: [
         {

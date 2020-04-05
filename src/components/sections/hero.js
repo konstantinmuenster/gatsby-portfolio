@@ -5,6 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { motion, useAnimation } from "framer-motion"
 
 import Context from "../../context/"
+
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 
@@ -64,40 +65,42 @@ const Hero = ({ content }) => {
   const { frontmatter, body } = content[0].node
   const { isIntroDone } = useContext(Context).state
 
-  const greetingsControls = useAnimation()
-  const emojiControls = useAnimation()
-  const socialControls = useAnimation()
+  // Controls to orchestrate animations of greetings, emoji, social profiles
+  const gControls = useAnimation()
+  const eControls = useAnimation()
+  const sControls = useAnimation()
 
+  // Start Animations after the splashScreen sequence is done
   useEffect(() => {
     const pageLoadSequence = async () => {
       if (isIntroDone) {
-        emojiControls.start({
+        eControls.start({
           rotate: [0, -10, 12, -10, 9, 0, 0, 0, 0, 0, 0],
           transition: { duration: 2.5, loop: 3, repeatDelay: 1 },
         })
-        await greetingsControls.start({
+        await gControls.start({
           opacity: 1,
           y: 0,
           transition: { delay: 0.4 },
         })
-        await socialControls.start({
+        await sControls.start({
           opacity: 1,
           x: 0,
         })
       }
     }
     pageLoadSequence()
-  }, [isIntroDone])
+  }, [isIntroDone, eControls, gControls, sControls])
   
   return (
     <StyledSection id="hero">
       {!isIntroDone && <SplashScreen />}
       <StyledContentWrapper>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={greetingsControls}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={gControls}>
           <h1 className="title">
             <div className="greetings">
               {frontmatter.greetings}
-              <motion.div animate={emojiControls} style={{ originX: 0.7, originY: 0.7 }}>
+              <motion.div animate={eControls} style={{ originX: 0.7, originY: 0.7 }}>
                 <Img className="emoji" fluid={frontmatter.icon.childImageSharp.fluid} />
               </motion.div>
             </div>
@@ -113,7 +116,7 @@ const Hero = ({ content }) => {
             <MDXRenderer>{body}</MDXRenderer>
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, x: 10 }} animate={socialControls}>
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={sControls}>
           <Social fontSize=".95rem" padding=".3rem 1.25rem" width="auto" />
         </motion.div>
       </StyledContentWrapper>

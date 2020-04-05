@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import styled from "styled-components"
+import SkeletonLoader from "tiny-skeleton-loader-react"
 import { motion, useAnimation } from "framer-motion"
 
 import Context from "../../context"
@@ -9,7 +10,7 @@ import { parseDate } from "../../utils"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 
-const { mediumRssFeed } = config
+const { mediumRssFeed, shownArticles } = config
 
 const StyledSection = motion.custom(styled.section`
   width: 100%;
@@ -113,33 +114,33 @@ const StyledContentWrapper = styled(ContentWrapper)`
 `
 
 const Articles = () => {
+  const MAX_ARTICLES = shownArticles
+
   const { isIntroDone } = useContext(Context).state
   const [articles, setArticles] = useState()
-
   const articlesControls = useAnimation()
-
+  
+  // Load and display articles after the splashScreen sequence is done
   useEffect(() => {
-    fetch(mediumRssFeed, { headers: { Accept: "application/json" } })
-      .then(res => res.json())
-      // Feed also contains comments, therefore we filter for articles only
-      .then(data => data.items.filter(item => item.categories.length > 0))
-      // Only select latest 3 articles
-      .then(newArticles => newArticles.slice(0, 3))
-      // Put articles in state
-      .then(articles => setArticles(articles))
-      .catch(error => console.log(error))
-  }, [])
-
-  useEffect(() => {
-    if (isIntroDone) {
-      articlesControls.start({ opacity: 1, y: 0, transition: { delay: 1 } })
+    const loadArticles = async () => {
+      if (isIntroDone) {
+        await articlesControls.start({ opacity: 1, y: 0, transition: { delay: 1 } })
+        fetch(mediumRssFeed, { headers: { Accept: "application/json" } })
+        .then(res => res.json())
+        // Feed also contains comments, therefore we filter for articles only
+        .then(data => data.items.filter(item => item.categories.length > 0))
+        .then(newArticles => newArticles.slice(0, MAX_ARTICLES))
+        .then(articles => setArticles(articles))
+        .catch(error => console.log(error))
+      }
     }
-  }, [isIntroDone])
+    loadArticles()
+  },[isIntroDone, articlesControls, MAX_ARTICLES])
 
   return (
     <StyledSection
       id="articles"
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={articlesControls}
     >
       <StyledContentWrapper>
@@ -166,7 +167,25 @@ const Articles = () => {
                   </div>
                 </a>
               ))
-            : null}
+            : [...Array(MAX_ARTICLES)].map((i, key) => (
+              <div className="card" key={key}>
+                <SkeletonLoader 
+                  background="#f2f2f2"
+                  height="1.5rem" 
+                  style={{ marginBottom: ".5rem" }}
+                />
+                <SkeletonLoader 
+                  background="#f2f2f2" 
+                  height="4rem"
+                />
+                <SkeletonLoader 
+                  background="#f2f2f2" 
+                  height=".75rem" 
+                  width="50%" 
+                  style={{ marginTop: ".5rem" }}
+                />
+              </div>
+            ))}
         </div>
       </StyledContentWrapper>
     </StyledSection>

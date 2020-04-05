@@ -8,7 +8,6 @@ import { motion } from "framer-motion"
 import { useOnScreen } from "../../hooks"
 import config from "../../config"
 
-import { fade, fadeUp } from "../../styles/Animations"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 import Button from "../../styles/Button"
@@ -173,29 +172,14 @@ const Projects = ({ content }) => {
   const sectionDetails = content[0].node
   const projects = content.slice(1, content.length)
 
-  // store visibility of projects in state
-  const [onScreen, setOnScreen] = useState({})
-
   // visibleProject is needed to show which project is currently
   // being viewed in the horizontal slider on mobile and tablet
   const [visibleProject, setVisibleProject] = useState(1)
 
-  // set visibility for all projects initially to false
-  useEffect(() => {
-    let initial = {}
-    projects.forEach(project => { initial[project.node.frontmatter.position] = false })
-    setOnScreen(initial)
-  }, [])
-
-  // set first project as the visible one after component did mount
-  useEffect(() => setVisibleProject(1), [])
-
-  const titleRef = useRef()
-  const titleOnScreen = useOnScreen(titleRef)
-  const buttonRef = useRef()
-  const buttonOnScreen = useOnScreen(buttonRef)
-
-  // if project gets into viewport, set its visibility to true
+  // projects don't track the visibility by using the onScreen hook
+  // instead they use react-visibility-sensor, therefore their visibility
+  // is also stored differently
+  const [onScreen, setOnScreen] = useState({})
   const handleOnScreen = el => {
     if (!onScreen[el]) {
       const updatedOnScreen = { ...onScreen }
@@ -203,11 +187,44 @@ const Projects = ({ content }) => {
       setOnScreen(updatedOnScreen)
     }
   }
+  const pVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  }
+  
+  useEffect(() => {
+    // mobile and tablet only: set first project as visible in the
+    // horizontal slider
+    setVisibleProject(1)
+    // required for animations: set visibility for all projects to
+    // "false" initially
+    let initial = {}
+    projects.forEach(project => { initial[project.node.frontmatter.position] = false })
+    setOnScreen(initial)
+  }, [])
+
+
+  // Required for animating the title
+  const tRef = useRef()
+  const tOnScreen = useOnScreen(tRef)
+  const tVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
+  
+  // Required for animating the button
+  const bRef = useRef()
+  const bOnScreen = useOnScreen(bRef)
+  const bVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
+
 
   return (
     <StyledSection id="projects">
       <StyledContentWrapper>
-        <motion.div ref={titleRef} initial={{ opacity: 0 }} animate={fade(titleOnScreen)}>
+        <motion.div ref={tRef} variants={tVariants} animate={tOnScreen ? "visible" : "hidden"}>
           <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
           <div className="counter">{visibleProject} / {projects.length}</div>
         </motion.div>
@@ -223,8 +240,8 @@ const Projects = ({ content }) => {
               >
                 <StyledProject
                   position={frontmatter.position}
-                  initial={{ opacity: 0 }}
-                  animate={fadeUp(onScreen[frontmatter.position])}
+                  variants={pVariants}
+                  animate={onScreen[frontmatter.position] ? "visible" : "hidden"}
                 >
                   <div className="details">
                     <div className="category">
@@ -250,9 +267,9 @@ const Projects = ({ content }) => {
           })}
         </div>
         <motion.a
-          ref={buttonRef}
-          initial={{ opacity: 0 }}
-          animate={fade(buttonOnScreen)}
+          ref={bRef}
+          variants={bVariants}
+          animate={bOnScreen ? "visible" : "hidden"}
           className="github-btn"
           href={socialMedia.filter(profile => profile.name === "Github")[0].url}
           target="_blank"

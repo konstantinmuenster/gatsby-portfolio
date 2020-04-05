@@ -38,8 +38,10 @@ const StyledSplashScreen = styled(motion.div)`
 
 const SplashScreen = () => {
     const {state, setState} = useContext(Context)
+
     const backgroundControls = useAnimation()
     const backdropControls = useAnimation()
+
     useEffect(() => {
         const sequence = async () => {
             await backgroundControls.start({ opacity: 1 })
@@ -48,7 +50,8 @@ const SplashScreen = () => {
             setState({ ...state, isIntroDone: true })
         }
         sequence()
-    }, [])
+    }, [backgroundControls, backdropControls, setState, state])
+    
   return (
     <StyledSplashScreen initial={{ opacity: 0 }} animate={backgroundControls}>
       {/* Add splashScreen class to body (prevents scrolling during splashScreen) */}
