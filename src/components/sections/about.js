@@ -36,15 +36,13 @@ const StyledContentWrapper = styled(ContentWrapper)`
     }
     .text-content {
       width: 100%;
-      max-width: 22rem;
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-        max-width: 31.25rem;
-      }
+      max-width: 31.25rem;
     }
     .image-content {
       width: 100%;
       max-width: 18rem;
       margin-top: 4rem;
+      margin-left: 2rem;
     }
     .about-author {
       border-radius: ${({ theme }) => theme.borderRadius};

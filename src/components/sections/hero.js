@@ -27,7 +27,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     flex-direction: column;
     justify-content: center;
     margin-bottom: 6rem;
-    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
       margin-bottom: 4rem;
     }
     .greetings {
@@ -39,7 +39,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       margin-left: 0.75rem;
       width: 2.2rem;
       height: 2.2rem;
-      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
         margin-left: 1rem;
         width: 3rem;
         height: 3rem;
@@ -47,7 +47,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     }
     .title {
       margin-bottom: 1.5rem;
-      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
         margin-bottom: 0;
       }
     }

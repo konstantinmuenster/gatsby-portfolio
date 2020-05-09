@@ -21,6 +21,14 @@ const StyledSection = styled.section`
   height: auto;
   background: ${({ theme }) => theme.colors.background};
   margin-top: 6rem;
+  .github-btn {
+    display: block;
+    text-align: center;
+    margin: 2rem auto;
+    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      margin: 0 auto;
+    }
+  }
 `
 
 const StyledContentWrapper = styled(ContentWrapper)`
@@ -95,12 +103,6 @@ const StyledContentWrapper = styled(ContentWrapper)`
         display: none;
       }
     }
-    .github-btn {
-      margin: -6rem auto 2rem auto;
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-        margin: 0 auto;
-      }
-    }
   }
 `
 
@@ -109,7 +111,7 @@ const StyledProject = styled(motion.div)`
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10rem;
+  margin-bottom: 2rem;
   flex-shrink: 0;
   padding-right: 2.5rem;
   max-width: 20rem;
@@ -120,6 +122,7 @@ const StyledProject = styled(motion.div)`
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     flex-shrink: 1;
     max-width: 62.5rem;
+    margin-bottom: 10rem;
     padding-right: 0;
     /* Positioning of image and details should vary */
     flex-direction: ${({ position }) =>
@@ -189,9 +192,9 @@ const Projects = ({ content }) => {
   }
   const pVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0 },
   }
-  
+
   useEffect(() => {
     // mobile and tablet only: set first project as visible in the
     // horizontal slider
@@ -199,10 +202,11 @@ const Projects = ({ content }) => {
     // required for animations: set visibility for all projects to
     // "false" initially
     let initial = {}
-    projects.forEach(project => { initial[project.node.frontmatter.position] = false })
+    projects.forEach(project => {
+      initial[project.node.frontmatter.position] = false
+    })
     setOnScreen(initial)
   }, [])
-
 
   // Required for animating the title
   const tRef = useRef()
@@ -211,7 +215,7 @@ const Projects = ({ content }) => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   }
-  
+
   // Required for animating the button
   const bRef = useRef()
   const bOnScreen = useOnScreen(bRef)
@@ -220,13 +224,18 @@ const Projects = ({ content }) => {
     visible: { opacity: 1 },
   }
 
-
   return (
     <StyledSection id="projects">
       <StyledContentWrapper>
-        <motion.div ref={tRef} variants={tVariants} animate={tOnScreen ? "visible" : "hidden"}>
+        <motion.div
+          ref={tRef}
+          variants={tVariants}
+          animate={tOnScreen ? "visible" : "hidden"}
+        >
           <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
-          <div className="counter">{visibleProject} / {projects.length}</div>
+          <div className="counter">
+            {visibleProject} / {projects.length}
+          </div>
         </motion.div>
         <div className="projects">
           {projects.map(project => {
@@ -241,7 +250,9 @@ const Projects = ({ content }) => {
                 <StyledProject
                   position={frontmatter.position}
                   variants={pVariants}
-                  animate={onScreen[frontmatter.position] ? "visible" : "hidden"}
+                  animate={
+                    onScreen[frontmatter.position] ? "visible" : "hidden"
+                  }
                 >
                   <div className="details">
                     <div className="category">
@@ -251,41 +262,45 @@ const Projects = ({ content }) => {
                     <MDXRenderer>{body}</MDXRenderer>
                     <div className="tags">
                       {frontmatter.tags.map(tag => (
-                        <Underlining key={tag} color="secondary" hoverColor="secondary">
+                        <Underlining
+                          key={tag}
+                          color="secondary"
+                          hoverColor="secondary"
+                        >
                           {tag}
                         </Underlining>
                       ))}
                     </div>
                   </div>
                   {/* If image in viewport changes, update state accordingly */}
-                  <VisibilitySensor onChange={() => setVisibleProject(frontmatter.position)}>
-                    <Img className="screenshot" fluid={frontmatter.screenshot.childImageSharp.fluid} />
+                  <VisibilitySensor
+                    onChange={() => setVisibleProject(frontmatter.position)}
+                  >
+                    <Img
+                      className="screenshot"
+                      fluid={frontmatter.screenshot.childImageSharp.fluid}
+                    />
                   </VisibilitySensor>
                 </StyledProject>
               </VisibilitySensor>
             )
           })}
         </div>
-        <motion.a
-          ref={bRef}
-          variants={bVariants}
-          animate={bOnScreen ? "visible" : "hidden"}
-          className="github-btn"
-          href={socialMedia.filter(profile => profile.name === "Github")[0].url}
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          aria-label="External Link"
-        >
-          <Button
-            type="button"
-            textAlign="center"
-            color="primary"
-            center
-          >
-            <IconGithub color="#ffffff" /> See More On Github
-          </Button>
-        </motion.a>
       </StyledContentWrapper>
+      <motion.a
+        ref={bRef}
+        variants={bVariants}
+        animate={bOnScreen ? "visible" : "hidden"}
+        className="github-btn"
+        href={socialMedia.filter(profile => profile.name === "Github")[0].url}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        aria-label="External Link"
+      >
+        <Button type="button" textAlign="center" color="primary" center>
+          <IconGithub color="#ffffff" /> See More On Github
+        </Button>
+      </motion.a>
     </StyledSection>
   )
 }

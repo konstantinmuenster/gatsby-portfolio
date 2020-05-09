@@ -59,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 2rem;
         line-height: 2.375rem;
         color: ${({ theme }) => theme.colors.primary};
-        @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+        @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
             font-size: 2.625rem;
             line-height: 4rem;
         }
@@ -70,7 +70,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1.25rem;
         line-height: 1.5rem;
         color: ${({ theme }) => theme.colors.primary};
-        @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+        @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
             font-size: 2rem;
             line-height: 3rem;
         }
