@@ -100,6 +100,8 @@ export const pageQuery = graphql`
           title
           category
           emoji
+          external
+          github
           screenshot {
             childImageSharp {
               fluid(maxWidth: 400, quality: 90) {

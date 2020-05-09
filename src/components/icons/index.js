@@ -5,21 +5,26 @@ import IconLinkedIn from "./linkedin"
 import IconMedium from "./medium"
 import IconGitHub from "./github"
 import IconBehance from "./behance"
+import IconExternal from "./external"
 
 // Utility function to grab Icons by name
-export default name => {
+const Icon = ({ name, color }) => {
   switch (name.toLowerCase()) {
     case "xing":
-      return <IconXing />
+      return <IconXing color={color} />
     case "linkedin":
-      return <IconLinkedIn />
+      return <IconLinkedIn color={color} />
     case "medium":
-      return <IconMedium />
+      return <IconMedium color={color} />
     case "github":
-      return <IconGitHub />
+      return <IconGitHub color={color} />
     case "behance":
-      return <IconBehance />
+      return <IconBehance color={color} />
+    case "external":
+      return <IconExternal color={color} />
     default:
       return null
   }
 }
+
+export default Icon;

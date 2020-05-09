@@ -12,8 +12,7 @@ import config from "../../config"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 import Button from "../../styles/Button"
-
-import IconGithub from "../icons/github"
+import Icon from "../icons"
 
 const { socialMedia } = config
 
@@ -112,6 +111,7 @@ const StyledProject = styled(motion.div)`
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   flex-shrink: 0;
   padding-right: 2.5rem;
@@ -135,6 +135,9 @@ const StyledProject = styled(motion.div)`
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
+    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      margin-top: 0;
+    }
     .category {
       font-size: 0.875rem;
       line-height: 1rem;
@@ -156,6 +159,26 @@ const StyledProject = styled(motion.div)`
       span {
         margin-right: 1rem;
         margin-bottom: 1rem;
+      }
+    }
+    .links {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      margin-top: 1rem;
+      a {
+        display: inline-block;
+        margin-right: 2rem;
+      }
+      svg {
+        fill: "#888888";
+        width: 1.3rem;
+        height: 1.3rem;
+        transition: all 0.3s ease-out;
+      }
+      svg:hover {
+        fill: ${({ theme }) => theme.colors.primary};
       }
     }
   }
@@ -241,6 +264,7 @@ const Projects = ({ content }) => {
         <div className="projects">
           {projects.map(project => {
             const { body, frontmatter } = project.node
+            console.log(frontmatter)
             return (
               <VisibilitySensor
                 key={frontmatter.position}
@@ -272,6 +296,28 @@ const Projects = ({ content }) => {
                         </Underlining>
                       ))}
                     </div>
+                    <div className="links">
+                      {frontmatter.github && (
+                        <a
+                          href={frontmatter.github}
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                          aria-label="External Link"
+                        >
+                          <Icon name="github" color="#888888" />
+                        </a>
+                      )}
+                      {frontmatter.external && (
+                        <a
+                          href={frontmatter.external}
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                          aria-label="External Link"
+                        >
+                          <Icon name="external" color="#888888" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                   {/* If image in viewport changes, update state accordingly */}
                   <VisibilitySensor
@@ -299,7 +345,7 @@ const Projects = ({ content }) => {
         aria-label="External Link"
       >
         <Button type="button" textAlign="center" color="primary" center>
-          <IconGithub color="#ffffff" /> See More On Github
+          <Icon name="github" color="white" /> See More On Github
         </Button>
       </motion.a>
     </StyledSection>

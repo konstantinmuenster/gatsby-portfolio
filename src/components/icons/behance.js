@@ -6,6 +6,8 @@ const Behance = ({ color }) => {
     <svg
       version="1.1"
       id="Capa_1"
+      role="img"
+      fill={color}
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"
@@ -15,7 +17,6 @@ const Behance = ({ color }) => {
     >
       <g>
         <path
-          fill={color}
           id="Behance"
           d="M388.432,119.12H280.659V92.35h107.782v26.77H388.432z M208.912,228.895
 		c6.954,10.771,10.429,23.849,10.429,39.203c0,15.878-3.918,30.122-11.889,42.704c-5.071,8.326-11.367,15.359-18.932,21.021

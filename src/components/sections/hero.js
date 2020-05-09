@@ -99,7 +99,7 @@ const Hero = ({ content }) => {
       }
     }
     pageLoadSequence()
-  }, [isIntroDone, eControls, gControls, sControls])
+  }, [isIntroDone, eControls, gControls, sControls, uControls])
   
   return (
     <StyledSection id="hero">

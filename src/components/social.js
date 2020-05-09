@@ -3,7 +3,8 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 
 import config from "../config/"
-import getIcon from "./icons/"
+import Icon from "./icons"
+
 const { socialMedia } = config
 
 const StyledSocialWrapper = styled.div`
@@ -112,7 +113,7 @@ const Social = ({ width, padding, fontSize, fontWeight, withIcon }) => (
           fontSize={fontSize}
           fontWeight={fontWeight}
         >
-          {withIcon ? getIcon(name) : null} {name}
+          {withIcon ? <Icon name={name} /> : null} {name}
         </StyledSocialProfile>
       )
     })}
