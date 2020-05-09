@@ -62,14 +62,17 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
+const AnimatedUnderlining = motion.custom(Underlining)
+
 const Hero = ({ content }) => {
   const { frontmatter, body } = content[0].node
   const { isIntroDone } = useContext(Context).state
 
-  // Controls to orchestrate animations of greetings, emoji, social profiles
+  // Controls to orchestrate animations of greetings, emoji, social profiles, underlining
   const gControls = useAnimation()
   const eControls = useAnimation()
   const sControls = useAnimation()
+  const uControls = useAnimation()
 
   // Start Animations after the splashScreen sequence is done
   useEffect(() => {
@@ -87,6 +90,11 @@ const Hero = ({ content }) => {
         await sControls.start({
           opacity: 1,
           x: 0,
+        })
+        // Animate underlining to hover state
+        await uControls.start({
+          boxShadow: "inset 0 -2rem 0 #CDF3E1",
+          transition: { delay: 0.4, ease: "circOut" },
         })
       }
     }
@@ -109,9 +117,9 @@ const Hero = ({ content }) => {
           </h1>
           <h2 className="subtitle">
             {frontmatter.subtitlePrefix}{" "}
-            <Underlining color="tertiary" hoverColor="secondary" big>
+            <AnimatedUnderlining animate={uControls} color="tertiary" hoverColor="secondary" big>
               {frontmatter.subtitle}
-            </Underlining>
+            </AnimatedUnderlining>
           </h2>
           <div className="description">
             <MDXRenderer>{body}</MDXRenderer>
