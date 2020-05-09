@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import { MDXRenderer } from "gatsby-plugin-mdx"
@@ -50,6 +51,21 @@ const Privacy = ({ data }) => {
       </StyledSection>
     </Layout>
   )
+}
+
+Privacy.propTypes = {
+  data: PropTypes.shape({
+    privacy: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            body: PropTypes.string.isRequired,
+            frontmatter: PropTypes.object.isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
 export default Privacy

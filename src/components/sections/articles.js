@@ -114,6 +114,8 @@ const StyledContentWrapper = styled(ContentWrapper)`
 `
 
 const Articles = () => {
+  // shownArticles is set in config.js, due to the rss feed loader
+  // it is currently limited to max 3
   const MAX_ARTICLES = shownArticles
 
   const { isIntroDone } = useContext(Context).state
@@ -125,6 +127,7 @@ const Articles = () => {
     const loadArticles = async () => {
       if (isIntroDone) {
         await articlesControls.start({ opacity: 1, y: 0, transition: { delay: 1 } })
+        // MediumRssFeed is set in config.js
         fetch(mediumRssFeed, { headers: { Accept: "application/json" } })
         .then(res => res.json())
         // Feed also contains comments, therefore we filter for articles only

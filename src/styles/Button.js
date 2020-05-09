@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
 
 const StyledButton = styled.button`
@@ -29,10 +30,17 @@ const StyledButton = styled.button`
   }
 `
 
-const Button = props => (
-  <StyledButton onClick={props.onClick} color={props.color} textAlign={props.textAlign} center={props.center}>
-    {props.children}
+const Button = ({ onClick, color, textAlign, center, children}) => (
+  <StyledButton onClick={onClick} color={color} textAlign={textAlign} center={center}>
+    {children}
   </StyledButton>
 )
+
+Button.propTypes = {
+  onClick: PropTypes.func,
+  color: PropTypes.string,
+  textAlign: PropTypes.string,
+  center: PropTypes.bool,
+}
 
 export default Button

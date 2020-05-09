@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
 
 import config from "../config/"
@@ -96,7 +97,7 @@ const StyledSocialProfile = styled.a`
   }
 `
 
-const Social = props => (
+const Social = ({ width, padding, fontSize, fontWeight, withIcon }) => (
   <StyledSocialWrapper itemCount={socialMedia.length}>
     {socialMedia.map(({ name, url }, key) => {
       return (
@@ -106,16 +107,24 @@ const Social = props => (
           target="_blank"
           rel="nofollow noopener noreferrer"
           aria-label={name}
-          width={props.width}
-          padding={props.padding}
-          fontSize={props.fontSize}
-          fontWeight={props.fontWeight}
+          width={width}
+          padding={padding}
+          fontSize={fontSize}
+          fontWeight={fontWeight}
         >
-          {props.withIcon ? getIcon(name) : null} {name}
+          {withIcon ? getIcon(name) : null} {name}
         </StyledSocialProfile>
       )
     })}
   </StyledSocialWrapper>
 )
+
+Social.propTypes = {
+  width: PropTypes.string,
+  padding: PropTypes.string,
+  fontSize: PropTypes.string,
+  fontWeight: PropTypes.string,
+  withIcon: PropTypes.bool,
+}
 
 export default Social

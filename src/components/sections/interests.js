@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
 import Img from "gatsby-image"
 import { motion, useAnimation } from "framer-motion"
@@ -177,6 +178,20 @@ const Interests = ({ content }) => {
       </StyledContentWrapper>
     </StyledSection>
   )
+}
+
+Interests.propTypes = {
+  content: PropTypes.arrayOf(
+    PropTypes.shape({
+      node: PropTypes.shape({
+        exports: PropTypes.shape({
+          interests: PropTypes.array.isRequired,
+          shownItems: PropTypes.number.isRequired,
+        }).isRequired,
+        frontmatter: PropTypes.object.isRequired,
+      }).isRequired,
+    }).isRequired
+  ).isRequired,
 }
 
 export default Interests

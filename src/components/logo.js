@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
 
 import config from "../config"
@@ -19,10 +20,15 @@ const StyledLogo = styled.div`
   user-select: auto !important;
 `
 
-const logo = ({ size, color }) => (
+const Logo = ({ size, color }) => (
   <StyledLogo color={color} size={size}>
     {siteShortTitle}
   </StyledLogo>
 )
 
-export default logo
+Logo.propTypes = {
+  size: PropTypes.string,
+  color: PropTypes.string,
+}
+
+export default Logo

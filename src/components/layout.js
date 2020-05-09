@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import PropTypes from "prop-types"
 import styled, { ThemeProvider } from "styled-components"
 import "typeface-roboto"
 
@@ -45,6 +46,11 @@ const Layout = ({ children, splashScreen }) => {
       </Context.Provider>
     </StyledLayoutWrapper>
   )
+}
+
+Layout.propTypes = {
+  children: PropTypes.any,
+  splashScreen: PropTypes.bool.isRequired,
 }
 
 export default Layout

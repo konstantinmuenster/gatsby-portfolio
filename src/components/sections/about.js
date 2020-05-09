@@ -1,10 +1,11 @@
 import React, { useRef } from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
 import Img from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { motion } from "framer-motion"
 
-import { useOnScreen }  from "../../hooks/"
+import { useOnScreen } from "../../hooks/"
 
 import ContentWrapper from "../../styles/ContentWrapper"
 
@@ -80,18 +81,42 @@ const About = ({ content }) => {
   return (
     <StyledSection id="about">
       <StyledContentWrapper>
-        <motion.div className="inner-wrapper" ref={tRef} variants={tVariants} animate={tOnScreen ? "visible" : "hidden"}>
+        <motion.div
+          className="inner-wrapper"
+          ref={tRef}
+          variants={tVariants}
+          animate={tOnScreen ? "visible" : "hidden"}
+        >
           <h3 className="section-title">{frontmatter.title}</h3>
           <div className="text-content">
             <MDXRenderer>{body}</MDXRenderer>
           </div>
         </motion.div>
-        <motion.div className="image-content" ref={iRef} variants={iVariants} animate={iOnScreen ? "visible" : "hidden"}>
-          <Img className="about-author" fluid={frontmatter.image.childImageSharp.fluid} />
+        <motion.div
+          className="image-content"
+          ref={iRef}
+          variants={iVariants}
+          animate={iOnScreen ? "visible" : "hidden"}
+        >
+          <Img
+            className="about-author"
+            fluid={frontmatter.image.childImageSharp.fluid}
+          />
         </motion.div>
       </StyledContentWrapper>
     </StyledSection>
   )
+}
+
+About.propTypes = {
+  content: PropTypes.arrayOf(
+    PropTypes.shape({
+      node: PropTypes.shape({
+        body: PropTypes.string.isRequired,
+        frontmatter: PropTypes.object.isRequired,
+      }).isRequired,
+    }).isRequired
+  ).isRequired,
 }
 
 export default About

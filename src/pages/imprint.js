@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import { MDXRenderer } from "gatsby-plugin-mdx"
@@ -50,6 +51,21 @@ const Imprint = ({ data }) => {
       </StyledSection>
     </Layout>
   )
+}
+
+Imprint.propTypes = {
+  data: PropTypes.shape({
+    imprint: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            body: PropTypes.string.isRequired,
+            frontmatter: PropTypes.object.isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
 export default Imprint
