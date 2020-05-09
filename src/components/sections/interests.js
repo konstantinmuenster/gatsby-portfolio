@@ -26,14 +26,14 @@ const StyledContentWrapper = styled(ContentWrapper)`
     justify-content: center;
     padding-right: 0;
     padding-left: 0;
-    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
     .section-title {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         padding-right: 0;
         padding-left: 0;
       }
@@ -65,7 +65,7 @@ const StyledInterests = styled.div`
     width: ${({ itemCount }) =>
       Math.ceil(itemCount / 2) % 2 === 1 ? "17.125rem" : "2.5rem"};
   }
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     grid-auto-flow: row;
     grid-template-columns: repeat(3, 15.625rem);
     overflow: visible;

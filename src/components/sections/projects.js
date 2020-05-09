@@ -25,7 +25,7 @@ const StyledSection = styled.section`
     display: block;
     text-align: center;
     margin: 2rem auto;
-    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
       margin: 0 auto;
     }
   }
@@ -41,14 +41,14 @@ const StyledContentWrapper = styled(ContentWrapper)`
     justify-content: center;
     padding-right: 0;
     padding-left: 0;
-    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
     .section-title {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         padding-right: 0;
         padding-left: 0;
       }
@@ -64,7 +64,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       &::-webkit-scrollbar {
         display: none;
       }
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         flex-direction: column;
         margin-top: 0;
         padding: 0;
@@ -111,16 +111,17 @@ const StyledProject = styled(motion.div)`
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 0;
   margin-bottom: 2rem;
   flex-shrink: 0;
   padding-right: 2.5rem;
   max-width: 20rem;
   @media (min-width: ${({ theme }) => theme.breakpoints.xs}) {
     max-width: 25rem;
+    margin-top: 2rem;
     padding-right: 5rem;
   }
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-shrink: 1;
     max-width: 62.5rem;
     margin-bottom: 10rem;
@@ -135,7 +136,7 @@ const StyledProject = styled(motion.div)`
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
-    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
       margin-top: 0;
     }
     .category {
@@ -172,7 +173,6 @@ const StyledProject = styled(motion.div)`
         margin-right: 2rem;
       }
       svg {
-        fill: "#888888";
         width: 1.3rem;
         height: 1.3rem;
         transition: all 0.3s ease-out;
@@ -264,7 +264,6 @@ const Projects = ({ content }) => {
         <div className="projects">
           {projects.map(project => {
             const { body, frontmatter } = project.node
-            console.log(frontmatter)
             return (
               <VisibilitySensor
                 key={frontmatter.position}

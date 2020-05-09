@@ -43,7 +43,10 @@ const StyledContentWrapper = styled(ContentWrapper)`
       width: 100%;
       max-width: 18rem;
       margin-top: 4rem;
-      margin-left: 2rem;
+      margin-left: 0;
+      @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+        margin-left: 2rem;
+      }
     }
     .about-author {
       border-radius: ${({ theme }) => theme.borderRadius};
