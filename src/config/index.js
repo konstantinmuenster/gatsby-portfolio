@@ -2,8 +2,8 @@ module.exports = {
 
     author: "@konstantinmuenster",
     siteTitle: "Konstantin Münster Portfolio",
-    siteShortTitle: "km.", // Used as logo text in header and footer
-    siteDescription: "Hi, I am Konstantin Münster - Product Manager and Freelance Web Developer - Based in Hamburg.",
+    siteShortTitle: "km.", // Used as logo text in header, footer, and splash screen
+    siteDescription: "Hi there! I'm Konstantin Münster, a product manager and freelance web developer based in Hamburg.",
     siteUrl: "https://konstantin.digital",
     siteLanguage: "en_US",
     siteIcon: "src/content/favicon.png", // Relative to gatsby-config file
