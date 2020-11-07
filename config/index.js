@@ -6,7 +6,8 @@ module.exports = {
     siteDescription: "Hi there! I'm Konstantin Münster, a product manager and freelance web developer based in Hamburg.",
     siteUrl: "https://konstantin.digital",
     siteLanguage: "en_US",
-    siteIcon: "src/content/favicon.png", // Relative to gatsby-config file
+    siteIcon: "content/favicon.png", // Relative to gatsby-config file
+    seoTitleSuffix: "Konstantin Münster", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
 
     splashScreen: true, // Set this to true if you want to use the splash screen
 

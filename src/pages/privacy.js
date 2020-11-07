@@ -4,10 +4,13 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
+import Config from "../../config"
 import ContentWrapper from "../styles/ContentWrapper"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+
+const { seoTitleSuffix } = Config
 
 const StyledSection = styled.section`
   width: 100%;
@@ -40,12 +43,17 @@ const StyledContentWrapper = styled(ContentWrapper)`
 
 const Privacy = ({ data }) => {
   const { body, frontmatter } = data.privacy.edges[0].node
+  const { title, seoTitle, useSeoTitleSuffix } = frontmatter
+  const withSuffix = useSeoTitleSuffix === "true"
   return (
     <Layout splashScreen={false}>
-      <SEO title="Privacy Policy - Konstantin Münster" meta={[{ name: 'robots', content: 'noindex'}]} />
-      <StyledSection id={frontmatter.title}>
+      <SEO
+        title={withSuffix ? `${seoTitle} - ${seoTitleSuffix}` : `${seoTitle}`}
+        meta={[{ name: "robots", content: "noindex" }]}
+      />
+      <StyledSection id={title}>
         <StyledContentWrapper>
-          <h1>{frontmatter.title}</h1>
+          <h1>{title}</h1>
           <MDXRenderer>{body}</MDXRenderer>
         </StyledContentWrapper>
       </StyledSection>
@@ -78,6 +86,8 @@ export const pageQuery = graphql`
           body
           frontmatter {
             title
+            seoTitle
+            useSeoTitleSuffix
           }
         }
       }
