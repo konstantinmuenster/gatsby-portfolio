@@ -4,16 +4,16 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-
 import Hero from "../components/sections/hero"
 import Articles from "../components/sections/articles" 
 import About from "../components/sections/about"
 import Interests from "../components/sections/interests"
 import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
+import { splashScreen } from "../config"
 
 const IndexPage = ({ data }) => (
-  <Layout splashScreen={true}>
+  <Layout splashScreen={splashScreen}>
     <SEO title="Konstantin Münster - Based in Hamburg." />
     <Hero content={data.hero.edges} />
     {/* Articles is populated via Medium RSS Feed fetch */}
@@ -111,6 +111,9 @@ export const pageQuery = graphql`
           }
           tags
           position
+          buttonVisible
+          buttonUrl
+          buttonText
         }
       }
     }

@@ -6,12 +6,11 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { motion, useAnimation } from "framer-motion"
 
 import Context from "../../context/"
-
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
-
 import Social from "../social"
 import SplashScreen from "../splashScreen"
+import Theme from "../../styles/Theme"
 
 const StyledSection = styled.section`
   width: 100%;
@@ -93,7 +92,7 @@ const Hero = ({ content }) => {
         })
         // Animate underlining to hover state
         await uControls.start({
-          boxShadow: "inset 0 -2rem 0 #CDF3E1",
+          boxShadow: `inset 0 -2rem 0 ${Theme.colors.secondary}`,
           transition: { delay: 0.4, ease: "circOut" },
         })
       }
@@ -117,7 +116,8 @@ const Hero = ({ content }) => {
           </h1>
           <h2 className="subtitle">
             {frontmatter.subtitlePrefix}{" "}
-            <AnimatedUnderlining animate={uControls} color="tertiary" hoverColor="secondary" big>
+            {/* Hover state color can be set in useEffect hook */}
+            <AnimatedUnderlining animate={uControls} color="tertiary" big>
               {frontmatter.subtitle}
             </AnimatedUnderlining>
           </h2>

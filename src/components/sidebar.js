@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 
 import config from "../config/"
+
 const { navLinks } = config
 
 const StyledBackdrop = styled.div`
@@ -45,7 +46,7 @@ const StyledNav = styled.nav`
   justify-content: center;
   background: ${({ theme }) => theme.colors.background};
   height: 100vh;
-  width: 70%;
+  width: 55%;
   text-align: left;
   padding: 2rem;
   position: relative;

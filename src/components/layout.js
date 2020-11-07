@@ -6,7 +6,6 @@ import "typeface-roboto"
 import Context from "../context/"
 import Theme from "../styles/Theme"
 import GlobalStyle from "../styles/GlobalStyle"
-
 import Header from "./header"
 import Footer from "./footer"
 

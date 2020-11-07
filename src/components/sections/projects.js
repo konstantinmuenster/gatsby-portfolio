@@ -7,21 +7,17 @@ import VisibilitySensor from "react-visibility-sensor"
 import { motion } from "framer-motion"
 
 import { useOnScreen } from "../../hooks"
-import config from "../../config"
-
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
 import Button from "../../styles/Button"
-import Icon from "../icons"
-
-const { socialMedia } = config
+import Icon from "../../components/icons"
 
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
   margin-top: 6rem;
-  .github-btn {
+  .cta-btn {
     display: block;
     text-align: center;
     margin: 2rem auto;
@@ -109,7 +105,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
 const StyledProject = styled(motion.div)`
   display: flex;
   flex-direction: column-reverse;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 0;
   margin-bottom: 2rem;
@@ -122,6 +118,7 @@ const StyledProject = styled(motion.div)`
     padding-right: 5rem;
   }
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    justify-content: space-between;
     flex-shrink: 1;
     max-width: 62.5rem;
     margin-bottom: 10rem;
@@ -185,12 +182,16 @@ const StyledProject = styled(motion.div)`
   .screenshot {
     width: 100%;
     max-width: 25rem;
+    height: 15rem;
     border-radius: ${({ theme }) => theme.borderRadius};
     box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
     transition: all 0.3s ease-out;
     &:hover {
       transform: translate3d(0px, -0.125rem, 0px);
       box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
+    }
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      height: 18.75rem;
     }
   }
 `
@@ -333,20 +334,22 @@ const Projects = ({ content }) => {
           })}
         </div>
       </StyledContentWrapper>
-      <motion.a
+      {sectionDetails.frontmatter.buttonVisible === "true" && (
+        <motion.a
         ref={bRef}
         variants={bVariants}
         animate={bOnScreen ? "visible" : "hidden"}
-        className="github-btn"
-        href={socialMedia.filter(profile => profile.name === "Github")[0].url}
+        className="cta-btn"
+        href={sectionDetails.frontmatter.buttonUrl}
         target="_blank"
         rel="nofollow noopener noreferrer"
         aria-label="External Link"
       >
         <Button type="button" textAlign="center" color="primary" center>
-          <Icon name="github" color="white" /> See More On Github
+          {sectionDetails.frontmatter.buttonText}
         </Button>
       </motion.a>
+      )}
     </StyledSection>
   )
 }

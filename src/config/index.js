@@ -8,7 +8,9 @@ module.exports = {
     siteLanguage: "en_US",
     siteIcon: "src/content/favicon.png", // Relative to gatsby-config file
 
-    mediumRssFeed: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40konstantin.muenster&api_key=51t0yukvezbsj6vz5h46icya39agdbxw1snykm3v",
+    splashScreen: true, // Set this to true if you want to use the splash screen
+
+    mediumRssFeed: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40konstantinmuenster",
     shownArticles: 3,
     
     socialMedia: [
