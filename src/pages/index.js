@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
+import GlobalStateProvider from "../context/provider"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Hero from "../components/sections/hero"
@@ -10,24 +11,39 @@ import About from "../components/sections/about"
 import Interests from "../components/sections/interests"
 import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
-import { splashScreen, seoTitleSuffix } from "../../config"
+import { seoTitleSuffix } from "../../config"
 
 const IndexPage = ({ data }) => {
-  const { seoTitle, useSeoTitleSuffix } = data.index.edges[0].node.frontmatter
-  const withSuffix = useSeoTitleSuffix === "true"
+  const { frontmatter } = data.index.edges[0].node
+  const { seoTitle, useSeoTitleSuffix, useSplashScreen } = frontmatter
+
+  const globalState = {
+    // if useSplashScreen=false, we skip the intro by setting isIntroDone=true
+    isIntroDone: useSplashScreen ? false : true,
+    // darkMode is initially disabled, a hook inside the Layout component
+    // will check the user's preferences and switch to dark mode if needed
+    darkMode: false,
+  }
+
   return (
-    <Layout splashScreen={splashScreen}>
-      <SEO
-        title={withSuffix ? `${seoTitle} - ${seoTitleSuffix}` : `${seoTitle}`}
-      />
-      <Hero content={data.hero.edges} />
-      {/* Articles is populated via Medium RSS Feed fetch */}
-      <Articles />
-      <About content={data.about.edges} />
-      <Interests content={data.interests.edges} />
-      <Projects content={data.projects.edges} />
-      <Contact content={data.contact.edges} />
-    </Layout>
+    <GlobalStateProvider initialState={globalState}>
+      <Layout>
+        <SEO
+          title={
+            useSeoTitleSuffix
+              ? `${seoTitle} - ${seoTitleSuffix}`
+              : `${seoTitle}`
+          }
+        />
+        <Hero content={data.hero.edges} />
+        {/* Articles is populated via Medium RSS Feed fetch */}
+        <Articles />
+        <About content={data.about.edges} />
+        <Interests content={data.interests.edges} />
+        <Projects content={data.projects.edges} />
+        <Contact content={data.contact.edges} />
+      </Layout>
+    </GlobalStateProvider>
   )
 }
 
@@ -45,11 +61,12 @@ export const pageQuery = graphql`
           frontmatter {
             seoTitle
             useSeoTitleSuffix
+            useSplashScreen
           }
         }
       }
     }
-    hero: allMdx(filter: { fileAbsolutePath: { regex: "/hero/" } }) {
+    hero: allMdx(filter: { fileAbsolutePath: { regex: "/index/hero/" } }) {
       edges {
         node {
           body
@@ -69,7 +86,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    about: allMdx(filter: { fileAbsolutePath: { regex: "/about/" } }) {
+    about: allMdx(filter: { fileAbsolutePath: { regex: "/index/about/" } }) {
       edges {
         node {
           body
@@ -86,7 +103,9 @@ export const pageQuery = graphql`
         }
       }
     }
-    interests: allMdx(filter: { fileAbsolutePath: { regex: "/interests/" } }) {
+    interests: allMdx(
+      filter: { fileAbsolutePath: { regex: "/index/interests/" } }
+    ) {
       edges {
         node {
           exports {
@@ -110,8 +129,8 @@ export const pageQuery = graphql`
     }
     projects: allMdx(
       filter: {
-        fileAbsolutePath: { regex: "/projects/" }
-        frontmatter: { visible: { eq: "true" } }
+        fileAbsolutePath: { regex: "/index/projects/" }
+        frontmatter: { visible: { eq: true } }
       }
       sort: { fields: [frontmatter___position], order: ASC }
     ) {
@@ -140,7 +159,9 @@ export const pageQuery = graphql`
         }
       }
     }
-    contact: allMdx(filter: { fileAbsolutePath: { regex: "/contact/" } }) {
+    contact: allMdx(
+      filter: { fileAbsolutePath: { regex: "/index/contact/" } }
+    ) {
       edges {
         node {
           body

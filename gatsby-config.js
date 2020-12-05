@@ -1,12 +1,19 @@
-const config = require('./config');
-const theme = require('./src/styles/Theme')
+const {
+  author,
+  siteTitle,
+  siteShortTitle,
+  siteDescription,
+  siteIcon,
+  siteUrl,
+  colors,
+} = require("./config")
 
 module.exports = {
   siteMetadata: {
-    title: config.siteTitle,
-    description: config.siteDescription,
-    author: config.author,
-    siteUrl: config.siteUrl,
+    title: siteTitle,
+    description: siteDescription,
+    author: author,
+    siteUrl: siteUrl,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -28,13 +35,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: config.siteTitle,
-        short_name: config.siteShortTitle,
+        name: siteTitle,
+        short_name: siteShortTitle,
         start_url: `/`,
-        background_color: theme.colors.background,
-        theme_color: theme.colors.primary,
+        background_color: colors.lightTheme.background,
+        theme_color: colors.lightTheme.primary,
         display: `minimal-ui`,
-        icon: config.siteIcon, // This path is relative to the root of the site.
+        icon: siteIcon, // This path is relative to the root of the site.
       },
     },
     {
