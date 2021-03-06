@@ -9,6 +9,8 @@ module.exports = {
   siteLanguage: "en_US",
   siteIcon: "content/favicon.png", // Relative to gatsby-config file
   seoTitleSuffix: "Konstantin Münster", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
+  useCookieBar: true, // If you use Google Analytics and want to be GDPR-compliant, set it to true
+  googleAnalyticsTrackingId: "UA-157258742-1", // e.g. UA-XXXXXX-X
 
   // -- THEME SETTINGS -----
   colors: {
@@ -52,10 +54,10 @@ module.exports = {
   // There are icons available for the following platforms:
   // Medium, GitHub, LinkedIn, XING, Behance
   socialMedia: [
-    {
-      name: "Xing",
-      url: "https://www.xing.com/profile/Konstantin_Muenster",
-    },
+    // {
+    //   name: "Xing",
+    //   url: "https://www.xing.com/profile/Konstantin_Muenster",
+    // },
     {
       name: "Linkedin",
       url: "https://www.linkedin.com/in/konstantin-muenster/",
@@ -67,6 +69,10 @@ module.exports = {
     {
       name: "Github",
       url: "https://github.com/konstantinmuenster",
+    },
+    {
+      name: "E-Mail",
+      url: "mailto:mail@konstantin.digital",
     },
     // {
     //     name: "Behance",
@@ -91,8 +97,10 @@ module.exports = {
       },
     ],
     button: {
+      useFileName: false,
       name: "Contact",
-      url: "/#contact",
+      fileName: "", // the file has to be placed inside the static folder at the root level
+      url: "/#contact", // if useFileName=false, you can set an anchor link here and use the button for navigational purposes
     },
   },
   footerLinks: [
