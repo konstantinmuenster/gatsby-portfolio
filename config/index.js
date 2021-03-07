@@ -71,7 +71,7 @@ module.exports = {
       url: "https://github.com/konstantinmuenster",
     },
     {
-      name: "E-Mail",
+      name: "Mail",
       url: "mailto:mail@konstantin.digital",
     },
     // {
