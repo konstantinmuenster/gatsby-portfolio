@@ -10,7 +10,7 @@
     "babel-plugin-styled-components": "^1.10.6",
     "fontsource-roboto": "^3.0.3",
     "framer-motion": "^1.10.2",
-    "gatsby": "^2.25.3",
+    "gatsby": "^4.25.7",
     "gatsby-image": "^2.2.36",
     "gatsby-plugin-gdpr-cookies": "^1.0.14",
     "gatsby-plugin-manifest": "^2.3.2",
